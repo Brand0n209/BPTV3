@@ -77,7 +77,7 @@ To automate builds on git push:
 ---
 
 
-🟢 Triggered first deployment manually on May 6 x6
+🟢 Triggered first deployment manually on May 6 x7
 
 pushupdates: "
 git add .
