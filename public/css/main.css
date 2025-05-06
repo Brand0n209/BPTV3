@@ -211,3 +211,28 @@ footer {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Sub-tabs pill group for Subs page */
+.tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.75em 1.5em;
+  gap: 0.5em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 3.25rem;
+  /* Hide scrollbar for Webkit browsers */
+  scrollbar-width: thin;
+}
+.tabs::-webkit-scrollbar {
+  height: 6px;
+  background: #f0f4ff;
+}
+.tabs::-webkit-scrollbar-thumb {
+  background: #c7d7f7;
+  border-radius: 3px;
+}
