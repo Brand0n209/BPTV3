@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="card">
         <h2>Customer Dashboard</h2>
-        <p>Welcome, <%= user ? user.userId : 'Customer' %>! You are logged in as <strong>Customer</strong>.</p>
+        <p>Welcome, <%= user && user.firstName ? user.firstName : 'Customer' %>! You are logged in as <strong>Customer</strong>.</p>
         <!-- Future: Add customer dashboard tabs and widgets here -->
       </div>
     </div>
