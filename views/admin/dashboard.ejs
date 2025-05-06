@@ -1,10 +1,10 @@
 <%- include('../partials/header', { title: 'Admin Dashboard - Bright Prodigy' }) %>
 <div class="layout-grid">
-  <%- include('../partials/sidebar', { user, activeTab: 'home' }) %>
+  <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'home' }) %>
   <div style="width:100%">
-    <%- include('../partials/topbar', { user }) %>
+    <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null }) %>
     <div class="main-container">
-      <%- include('home') %>
+      <%- include('home', { user: typeof user !== 'undefined' ? user : null }) %>
     </div>
     <%- include('../partials/footer') %>
   </div>

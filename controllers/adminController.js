@@ -145,6 +145,7 @@ exports.getSubs = async (req, res) => {
     filterType,
     submissions,
     error,
+    selectedRow: typeof req.query.selected !== 'undefined' ? parseInt(req.query.selected) : -1,
     subTabs: [
       { label: 'Not Contacted Yet', value: 'Not Contacted Yet' },
       { label: 'Contacted', value: 'Contacted' },
