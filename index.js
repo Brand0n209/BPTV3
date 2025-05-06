@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const { verifyUser } = require('./auth');
+const getSheetsClient = require('./auth');
 const config = require('./config');
 
 const app = express();
@@ -46,15 +46,23 @@ function requireLogin(req, res, next) {
 
 // POST /login
 app.post('/login', async (req, res) => {
-  const { userId, password } = req.body;
+  const { username, password } = req.body;
   try {
-    const result = await verifyUser(userId, password);
-    if (result && result.role) {
-      req.session.user = { userId, role: result.role };
+    const sheets = await getSheetsClient();
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: config.GOOGLE_SHEET_ID,
+      range: `${config.GOOGLE_SHEET_TAB}!A2:C`, // A=UserID, B=Password, C=Role
+    });
+
+    const rows = response.data.values || [];
+    const match = rows.find(row => row[0] === username && row[1] === password);
+
+    if (match) {
+      req.session.user = { userId: username, role: match[2] || 'unknown' };
       // Redirect based on role
-      if (result.role === 'admin') return res.redirect('/admin.html');
-      if (result.role === 'technician') return res.redirect('/technician.html');
-      if (result.role === 'customer') return res.redirect('/customer.html');
+      if (match[2] === 'admin') return res.redirect('/admin.html');
+      if (match[2] === 'technician') return res.redirect('/technician.html');
+      if (match[2] === 'customer') return res.redirect('/customer.html');
       // Unknown role fallback
       return res.redirect('/login.html?error=role');
     } else {
