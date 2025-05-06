@@ -1,18 +1,17 @@
 /**
  * Admin controller for Bright Prodigy.
- * Handles admin dashboard and future admin tab logic.
+ * Handles admin dashboard and all admin tab logic.
  */
 
 exports.home = (req, res) => {
   res.render('admin/dashboard', {
     user: req.session.user,
-    activeTab: 'home',
-    // Add more data for home tab as needed
+    activeTab: 'home'
   });
 };
 
 /**
- * TODO: Admin Cust Payout tab handler
+ * Admin Cust Payout tab handler
  */
 exports.custPayout = (req, res) => {
   res.render('admin/custPayout', {
@@ -22,7 +21,7 @@ exports.custPayout = (req, res) => {
 };
 
 /**
- * TODO: Admin Customer Management tab handler
+ * Admin Customer Management tab handler
  */
 exports.customerManagement = (req, res) => {
   res.render('admin/customerManagement', {
@@ -32,7 +31,7 @@ exports.customerManagement = (req, res) => {
 };
 
 /**
- * TODO: Admin Staff Management tab handler
+ * Admin Staff Management tab handler
  */
 exports.staffManagement = (req, res) => {
   res.render('admin/staffManagement', {
@@ -42,7 +41,7 @@ exports.staffManagement = (req, res) => {
 };
 
 /**
- * TODO: Admin Referrals tab handler
+ * Admin Referrals tab handler
  */
 exports.referrals = (req, res) => {
   res.render('admin/referrals', {
@@ -52,7 +51,7 @@ exports.referrals = (req, res) => {
 };
 
 /**
- * TODO: Admin Doc Hub tab handler
+ * Admin Doc Hub tab handler
  */
 exports.docHub = (req, res) => {
   res.render('admin/docHub', {
@@ -62,7 +61,7 @@ exports.docHub = (req, res) => {
 };
 
 /**
- * TODO: Admin Settings tab handler
+ * Admin Settings tab handler
  */
 exports.settings = (req, res) => {
   res.render('admin/settings', {
@@ -78,6 +77,10 @@ const config = require('../config/config');
 
 /**
  * Admin Subs tab handler
+ * Handles sub-tab navigation and filtering for the Subs table.
+ * - Reads ?stage= from query, defaults to "Not Contacted Yet"
+ * - Filters rows based on selected stage
+ * - Passes filtered rows, user, activeTab, currentStage, and stages to the view
  */
 exports.subsView = async (req, res) => {
   try {
@@ -102,7 +105,8 @@ exports.subsView = async (req, res) => {
 
     let filteredRows;
     if (currentStage === "All Subs") {
-      filteredRows = rows;
+      // Show only rows with "Sub Date" filled, regardless of "Stage"
+      filteredRows = rows.filter(r => r["Sub Date"]);
     } else if (currentStage === "Not Contacted Yet" || !currentStage) {
       filteredRows = rows.filter(r => r["Sub Date"] && !r["Stage"]);
     } else {
@@ -122,4 +126,4 @@ exports.subsView = async (req, res) => {
   }
 };
 
-// Future: Add more admin tab handlers here
+// Add more admin tab handlers below as needed
