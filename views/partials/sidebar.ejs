@@ -1,6 +1,6 @@
 <nav
   id="sidebar"
-  class="sidebar group fixed top-16 left-0 h-[calc(100%-4rem)] z-30 bg-blue-50 border-r border-blue-200 w-16 md:max-w-16 md:group-hover:max-w-56 transition-[max-width] duration-300 ease-in-out overflow-hidden"
+  class="group fixed top-16 left-0 h-[calc(100%-4rem)] z-30 bg-blue-50 border-r border-blue-200 w-16 group-hover:w-56 transition-all duration-300 ease-in-out overflow-hidden"
 >
   <!-- User Info -->
   <% if (user) { %>
@@ -33,8 +33,7 @@
             <!-- Home icon -->
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Home
           </span>
         </a>
@@ -47,8 +46,7 @@
             <!-- Subs icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M12 8v8" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Subs
           </span>
         </a>
@@ -61,8 +59,7 @@
             <!-- Users icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 010 7.75" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Customer Mgmt
           </span>
         </a>
@@ -75,8 +72,7 @@
             <!-- Staff icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Staff Mgmt
           </span>
         </a>
@@ -89,8 +85,7 @@
             <!-- Referrals icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Referrals
           </span>
         </a>
@@ -103,8 +98,7 @@
             <!-- Docs icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10M7 11h10M7 15h10M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Doc Hub
           </span>
         </a>
@@ -117,8 +111,7 @@
             <!-- Settings icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6 1a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           </span>
-          <span class="sidebar-label text-sm font-medium transition-all duration-300
-            max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+          <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
             Settings
           </span>
         </a>
@@ -131,8 +124,7 @@
           <!-- Logout icon -->
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" /></svg>
         </span>
-        <span class="sidebar-label text-sm font-medium transition-all duration-300
-          max-w-0 opacity-0 group-hover:max-w-[180px] group-hover:opacity-100 overflow-hidden whitespace-nowrap">
+        <span class="sidebar-label text-sm font-medium whitespace-nowrap overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
           Logout
         </span>
       </a>
