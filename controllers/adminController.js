@@ -76,4 +76,26 @@ const config = require('../config/config');
 
 // ... other handlers ...
 
+/**
+ * Admin Subs tab handler
+ */
+exports.subsView = async (req, res) => {
+  try {
+    const rows = await getSheetRowsByHeaders(
+      config.SUBMISSIONS_SHEET_ID,
+      config.SUBMISSIONS_SHEET_NAME,
+      2 // Header row is row 2
+    );
+    const filteredRows = rows.filter(r => r['Sub Date'] && !r['Stage']);
+    res.render('admin/subs', {
+      user: req.session.user,
+      rows: filteredRows,
+      activeTab: 'subs',
+    });
+  } catch (err) {
+    console.error('Subs View Error:', err);
+    res.status(500).render('error', { message: 'Failed to load subs tab' });
+  }
+};
+
 // Future: Add more admin tab handlers here

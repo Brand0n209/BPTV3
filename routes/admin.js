@@ -45,4 +45,9 @@ router.get('/doc-hub', adminController.docHub);
  */
 router.get('/settings', adminController.settings);
 
+/**
+ * Admin Subs tab route
+ */
+router.get('/subs', adminController.subsView);
+
 module.exports = router;
