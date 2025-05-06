@@ -3,17 +3,45 @@
 <div class="layout-grid">
   <%- include('../partials/sidebar', { user, activeTab: 'subs' }) %>
   <div style="width:100%">
-    <%- include('../partials/topbar', { user }) %>
+    <%- include('../partials/topbar', { user, currentTab: filterType }) %>
     <div class="main-container">
       <div class="w-full max-w-3xl mx-auto">
-        <nav class="flex border-b border-gray-200 mb-6" aria-label="Submissions Tabs">
+        <nav class="flex flex-wrap gap-2 mb-6" aria-label="Submissions Tabs">
           <% subTabs.forEach(function(tab) { %>
             <a href="/admin/subs/<%= encodeURIComponent(tab.value) %>"
-              class="px-4 py-2 -mb-px text-sm font-medium transition border-b-2
+              class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition
+                shadow-sm border
                 <%= filterType === tab.value
-                  ? 'border-blue-600 text-blue-700 font-semibold'
-                  : 'border-transparent text-gray-500 hover:text-blue-600 hover:border-blue-300' %>">
-              <%= tab.label %>
+                  ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300'
+                  : 'bg-white text-blue-700 border-blue-300 hover:bg-blue-50 hover:shadow-md' %>
+                hover:-translate-y-0.5"
+              style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.2s;">
+              <% if (tab.value === 'Not Contacted Yet') { %>
+                <!-- Clock/Time icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" /></svg>
+              <% } else if (tab.value === 'Contacted') { %>
+                <!-- Phone icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2zm10-10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+              <% } else if (tab.value === 'Waiting Cust Approval') { %>
+                <!-- Hourglass icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V4a4 4 0 018 0v3m0 10v3a4 4 0 01-8 0v-3m8-10H8m8 10H8" /></svg>
+              <% } else if (tab.value === 'Confirmed & Inputted') { %>
+                <!-- Checkmark icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              <% } else if (tab.value === 'Not Interested after sub') { %>
+                <!-- X/Close icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              <% } else if (tab.value === 'Bad Lead') { %>
+                <!-- Exclamation icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <% } else if (tab.value === 'Contacted again, no reply') { %>
+                <!-- Repeat/Arrow icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" /></svg>
+              <% } else if (tab.value === 'Fired') { %>
+                <!-- Fire icon -->
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0a7 7 0 00-7 7c0 3.866 3.134 7 7 7s7-3.134 7-7a7 7 0 00-7-7zm0 0V3" /></svg>
+              <% } %>
+              <span><%= tab.label %></span>
             </a>
           <% }) %>
         </nav>

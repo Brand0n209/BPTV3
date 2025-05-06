@@ -2,7 +2,7 @@
 <div class="layout-grid">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'home' }) %>
   <div style="width:100%">
-    <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null }) %>
+    <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Home' }) %>
     <div class="main-container">
       <%- include('home', { user: typeof user !== 'undefined' ? user : null }) %>
     </div>
