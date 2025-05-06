@@ -81,16 +81,40 @@ const config = require('../config/config');
  */
 exports.subsView = async (req, res) => {
   try {
+    const stages = [
+      "All Subs",
+      "Not Contacted Yet",
+      "Contacted",
+      "Waiting Cust Approval",
+      "Confirmed & Inputted",
+      "Not Interested after sub",
+      "Bad Lead",
+      "Contacted again, no reply",
+      "Fired"
+    ];
+    let currentStage = req.query.stage || "Not Contacted Yet";
+
     const rows = await getSheetRowsByHeaders(
       config.SUBMISSIONS_SHEET_ID,
       config.SUBMISSIONS_SHEET_NAME,
       2 // Header row is row 2
     );
-    const filteredRows = rows.filter(r => r['Sub Date'] && !r['Stage']);
+
+    let filteredRows;
+    if (currentStage === "All Subs") {
+      filteredRows = rows;
+    } else if (currentStage === "Not Contacted Yet" || !currentStage) {
+      filteredRows = rows.filter(r => r["Sub Date"] && !r["Stage"]);
+    } else {
+      filteredRows = rows.filter(r => r["Stage"] === currentStage);
+    }
+
     res.render('admin/subs', {
       user: req.session.user,
       rows: filteredRows,
       activeTab: 'subs',
+      stages,
+      currentStage
     });
   } catch (err) {
     console.error('Subs View Error:', err);
