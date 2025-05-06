@@ -42,90 +42,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Auth Routes
 // =====================
 
-// GET /auth/login
-app.get('/auth/login', (req, res) => {
-  res.render('auth/login', { error: null });
-});
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
-// POST /auth/login
-app.post('/auth/login', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const sheets = await getSheetsClient();
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: config.GOOGLE_SHEET_ID,
-      range: `${config.GOOGLE_SHEET_TAB}!A1:Z`, // Read headers + all columns
-    });
-
-    const values = response.data.values || [];
-    if (values.length < 2) {
-      return res.render('auth/login', { error: 'No users found.' });
-    }
-
-    // Map headers to column indices
-    const headers = values[0];
-    const rows = values.slice(1);
-
-    // Ensure required headers exist
-    const userIdIdx = headers.indexOf('UserID');
-    const passwordIdx = headers.indexOf('Password');
-    const roleIdx = headers.indexOf('Role');
-    console.log('Sheet headers:', headers);
-    console.log('First data row:', rows[0]);
-    console.log('Login attempt:', { username, password });
-    if (userIdIdx === -1 || passwordIdx === -1 || roleIdx === -1) {
-      return res.render('auth/login', { error: 'Sheet missing required columns: UserID, Password, or Role.' });
-    }
-
-    // Find user by correct column index, trimming whitespace and case-insensitive
-    const match = rows.find(row => {
-      const sheetUser = (row[userIdIdx] || '').trim();
-      const sheetPass = (row[passwordIdx] || '').trim();
-      return (
-        sheetUser.localeCompare(username.trim(), undefined, { sensitivity: 'accent' }) === 0 &&
-        sheetPass === password.trim()
-      );
-    });
-
-    if (match) {
-      // Map row to object for session using header names
-      const rowObj = {};
-      headers.forEach((h, i) => { rowObj[h] = match[i]; });
-      req.session.user = {
-        userId: match[userIdIdx],
-        role: match[roleIdx] || 'unknown',
-        firstName: rowObj['First Name'] || '',
-        lastName: rowObj['Last Name'] || '',
-        // Add more fields as needed
-      };
-      // Redirect based on role
-      switch (match[roleIdx]) {
-        case 'admin':
-          return res.redirect('/admin');
-        case 'advisor':
-          return res.redirect('/advisor');
-        case 'technician':
-          return res.redirect('/technician');
-        case 'customer':
-          return res.redirect('/customer');
-        default:
-          return res.render('auth/login', { error: 'Unknown role. Contact admin.' });
-      }
-    } else {
-      return res.render('auth/login', { error: 'Invalid UserID or Password.' });
-    }
-  } catch (err) {
-    console.error('Login error:', err);
-    return res.render('auth/login', { error: 'Server error. Try again.' });
-  }
-});
-
-// GET /logout
-app.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/auth/login');
-  });
-});
+// For convenience, redirect /logout to /auth/logout
+app.get('/logout', (req, res) => res.redirect('/auth/logout'));
 
 // =====================
 // Role Dashboards
