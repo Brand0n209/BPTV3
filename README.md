@@ -76,6 +76,5 @@ To automate builds on git push:
 
 ---
 
-## License
 
-MIT
+🟢 Triggered first deployment manually on May 6
