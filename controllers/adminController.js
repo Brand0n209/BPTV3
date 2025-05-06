@@ -83,6 +83,14 @@ exports.subsView = async (req, res) => {
 
   try {
     const allRows = await getSheetRowsByHeaders(sheetId, sheetName, 2);
+
+    // Debug: log raw rows
+    console.log('Raw rows from sheet:', allRows);
+
+    if (!allRows || allRows.length === 0) {
+      throw new Error('No data found in the sheet. Check if the sheet has at least 2 rows (header + data).');
+    }
+
     const headers = Object.keys(allRows[0] || {});
 
     // Define all possible stages except "Not Contacted Yet"
