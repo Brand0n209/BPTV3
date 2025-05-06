@@ -10,8 +10,8 @@ const technicianController = require('../controllers/technicianController');
 // All technician routes require login and technician role
 router.use(ensureLogin, ensureRole('technician'));
 
-// Technician dashboard (home)
-router.get('/', technicianController.dashboard);
+// Technician home (dashboard shell)
+router.get('/', technicianController.home);
 
 // Future: Add more technician tab routes here
 

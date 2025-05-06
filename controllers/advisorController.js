@@ -3,10 +3,11 @@
  * Handles advisor dashboard and future advisor tab logic.
  */
 
-exports.dashboard = (req, res) => {
+exports.home = (req, res) => {
   res.render('advisor/dashboard', {
     user: req.session.user,
-    // Add more data for dashboard as needed
+    activeTab: 'home',
+    // Add more data for home tab as needed
   });
 };
 

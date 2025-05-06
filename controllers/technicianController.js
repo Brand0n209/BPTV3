@@ -3,10 +3,11 @@
  * Handles technician dashboard and future technician tab logic.
  */
 
-exports.dashboard = (req, res) => {
+exports.home = (req, res) => {
   res.render('technician/dashboard', {
     user: req.session.user,
-    // Add more data for dashboard as needed
+    activeTab: 'home',
+    // Add more data for home tab as needed
   });
 };
 

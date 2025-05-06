@@ -31,11 +31,25 @@ body {
   top: 0; left: 0;
   display: none;
   box-sizing: border-box;
+  z-index: 40;
+  transition: transform 0.2s;
+}
+
+/* Show sidebar as overlay on mobile when .open is toggled */
+.sidebar.open {
+  display: block;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.2);
+  transform: translateX(0);
 }
 
 @media (min-width: 900px) {
   .sidebar {
     display: block;
+    box-shadow: none;
+    transform: none;
+  }
+  .sidebar.open {
+    box-shadow: none;
   }
 }
 

@@ -3,10 +3,11 @@
  * Handles admin dashboard and future admin tab logic.
  */
 
-exports.dashboard = (req, res) => {
+exports.home = (req, res) => {
   res.render('admin/dashboard', {
     user: req.session.user,
-    // Add more data for dashboard as needed
+    activeTab: 'home',
+    // Add more data for home tab as needed
   });
 };
 

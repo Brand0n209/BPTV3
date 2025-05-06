@@ -10,8 +10,8 @@ const customerController = require('../controllers/customerController');
 // All customer routes require login and customer role
 router.use(ensureLogin, ensureRole('customer'));
 
-// Customer dashboard (home)
-router.get('/', customerController.dashboard);
+// Customer home (dashboard shell)
+router.get('/', customerController.home);
 
 // Future: Add more customer tab routes here
 

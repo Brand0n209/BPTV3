@@ -10,8 +10,8 @@ const adminController = require('../controllers/adminController');
 // All admin routes require login and admin role
 router.use(ensureLogin, ensureRole('admin'));
 
-// Admin dashboard (home)
-router.get('/', adminController.dashboard);
+// Admin home (dashboard shell)
+router.get('/', adminController.home);
 
 // Future: Add more admin tab routes here
 

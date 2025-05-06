@@ -1,14 +1,10 @@
 <%- include('../partials/header', { title: 'Admin Dashboard - Bright Prodigy' }) %>
 <div class="layout-grid">
-  <%- include('../partials/sidebar') %>
+  <%- include('../partials/sidebar', { user, activeTab: 'home' }) %>
   <div style="width:100%">
     <%- include('../partials/topbar', { user }) %>
     <div class="main-container">
-      <div class="card">
-        <h2>Admin Dashboard</h2>
-        <p>Welcome, <%= user && user.firstName ? user.firstName : 'Admin' %>! You are logged in as <strong>Admin</strong>.</p>
-        <!-- Future: Add admin dashboard tabs and widgets here -->
-      </div>
+      <%- include('home') %>
     </div>
     <%- include('../partials/footer') %>
   </div>

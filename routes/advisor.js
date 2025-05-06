@@ -10,8 +10,8 @@ const advisorController = require('../controllers/advisorController');
 // All advisor routes require login and advisor role
 router.use(ensureLogin, ensureRole('advisor'));
 
-// Advisor dashboard (home)
-router.get('/', advisorController.dashboard);
+// Advisor home (dashboard shell)
+router.get('/', advisorController.home);
 
 // Future: Add more advisor tab routes here
 
