@@ -1,37 +1,27 @@
 steps:
-  # 1. Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-t',
-      'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA',
-      '.'
-    ]
+    args: ['build', '-t', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA', '-t', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:latest', '.']
 
-  # 2. Push the image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'push',
-      'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA'
-    ]
+    args: ['push', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA']
 
-  # 3. Deploy to Cloud Run using that new image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:latest']
+
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
+    entrypoint: gcloud
     args:
-      - 'run'
-      - 'deploy'
-      - 'bright-prodigy-app'
-      - '--image'
-      - 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA'
-      - '--region'
-      - 'us-west2'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'
+      [
+        'run', 'deploy', 'bright-prodigy-app',
+        '--image', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:latest',
+        '--region=us-west2',
+        '--platform=managed',
+        '--allow-unauthenticated'
+      ]
 
 images:
   - 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA'
+  - 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
