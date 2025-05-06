@@ -80,9 +80,9 @@ To automate builds on git push:
 🟢 Triggered first deployment manually on May 6 x7
 
 pushupdates: "
-touch .trigger-rebuild
-git add .trigger-rebuild
-git commit -m "Trigger rebuild to fix index.js error"
+git add .
+git commit -m "Trigger rebuild to fix Docker CMD and start script"
 git push
+
 
 "
