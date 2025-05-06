@@ -34,6 +34,12 @@ exports.login = async (req, res) => {
     const headers = rows[0];
     const dataRows = rows.slice(1);
 
+    // Log headers and first 3 data rows for debugging
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Login: Sheet headers:', headers);
+      console.log('Login: First 3 data rows:', dataRows.slice(0, 3));
+    }
+
     const uidIndex = headers.indexOf('UserID');
     const passIndex = headers.indexOf('Password');
     const roleIndex = headers.indexOf('Role');
@@ -69,7 +75,8 @@ exports.login = async (req, res) => {
       return res.render('auth/login', { error: 'Invalid UserID or Password.' });
     }
   } catch (err) {
-    console.error('Login error:', err);
+    // Log full error object for debugging
+    console.error('Login error (full object):', err);
 
     // More specific error handling for Google Sheets issues
     let errorMsg = 'Server error. Try again.';
