@@ -85,28 +85,48 @@ exports.subsView = async (req, res) => {
     const allRows = await getSheetRowsByHeaders(sheetId, sheetName, 2);
     const headers = Object.keys(allRows[0] || {});
 
+    // Define all possible stages except "Not Contacted Yet"
+    const allStages = [
+      "Contacted",
+      "Waiting Cust Approval",
+      "Confirmed & Inputted",
+      "Not Interested after sub",
+      "Bad Lead",
+      "Contacted again, no reply",
+      "Fired"
+    ];
+
     // Filter logic
     const filteredRows = allRows.filter(row => {
+      // Exclude blank rows (no Sub Date and all fields empty)
+      const isBlank = !row['Sub Date'] && Object.values(row).every(val => !val);
+      if (isBlank) return false;
+
       if (stage === 'Not Contacted Yet') {
-        return row['Sub Date'] && !row['Stage'];
+        // Show rows where Stage is blank, null, or not in allStages, and Sub Date is present
+        return (
+          row['Sub Date'] &&
+          (
+            !row['Stage'] ||
+            !allStages.includes(row['Stage'])
+          )
+        );
       }
       return row['Stage'] === stage;
     });
 
-    // Format rows into arrays
-    const tableRows = filteredRows.map(row =>
-      headers.map(header => row[header] || '')
-    );
-
     res.render('admin/subs', {
       headers,
-      rows: tableRows,
+      rows: filteredRows,
       currentStage: stage,
       user: req.session.user
     });
   } catch (err) {
     console.error('SubsView error:', err);
-    res.render('error', { message: 'Unable to load submissions.' });
+    res.render('error', { 
+      message: 'Unable to load submissions.<br><pre>' + (err && err.stack ? err.stack : err) + '</pre>',
+      user: req.session.user
+    });
   }
 };
 
