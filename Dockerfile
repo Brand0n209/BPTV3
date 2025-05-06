@@ -1,17 +1,15 @@
 # Use official Node.js LTS image
 FROM node:18-slim
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json (no dependencies, but best practice)
+# Copy package.json and install dependencies
 COPY package.json ./
+RUN npm install
 
-# Copy app source
+# Copy the rest of the app
 COPY index.js ./
 
-# Expose port 8080 for Cloud Run
 EXPOSE 8080
 
-# Start the server
 CMD ["npm", "start"]
