@@ -4,7 +4,8 @@
   "description": "A minimal Node.js web app for Google Cloud Run",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build:css": "npx tailwindcss -c tailwind.config.js -i ./public/css/tailwind-src.css -o ./public/css/tailwind.css --minify"
   },
   "engines": {
     "node": ">=18"
@@ -20,9 +21,5 @@
   "license": "MIT",
   "devDependencies": {
     "tailwindcss": "^3.4.1"
-  },
-  "scripts": {
-    "build:css": "npx tailwindcss -c tailwind.config.js -i ./public/css/tailwind-src.css -o ./public/css/tailwind.css --minify",
-    "start": "node app.js"
   }
 }

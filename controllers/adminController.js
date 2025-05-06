@@ -139,13 +139,22 @@ exports.getSubs = async (req, res) => {
     submissions = [];
   }
 
+  const selectedRow = typeof req.query.selected !== 'undefined' ? parseInt(req.query.selected) : -1;
+  const rowClasses = submissions.map((row, idx) => {
+    let cls = 'cursor-pointer transition';
+    cls += (idx % 2 === 0 ? ' bg-white' : ' bg-gray-50');
+    if (selectedRow === idx) cls += ' ring-2 ring-blue-400 bg-blue-100';
+    return cls;
+  });
+
   res.render('admin/subs', {
     user: req.session.user,
     activeTab: 'subs',
     filterType,
     submissions,
     error,
-    selectedRow: typeof req.query.selected !== 'undefined' ? parseInt(req.query.selected) : -1,
+    selectedRow,
+    rowClasses,
     subTabs: [
       { label: 'Not Contacted Yet', value: 'Not Contacted Yet' },
       { label: 'Contacted', value: 'Contacted' },
