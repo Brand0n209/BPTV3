@@ -71,39 +71,9 @@ exports.settings = (req, res) => {
   });
 };
 
-const { getSheetRowsByHeaders, getRowsFromSheet } = require('../lib/googleSheets');
+const { getSheetRowsByHeaders } = require('../lib/googleSheets');
 const config = require('../config/config');
 
 // ... other handlers ...
-
-exports.renderSubs = async (req, res) => {
-  try {
-    const stage = req.params.stage || 'Not Contacted Yet';
-    const sheetName = 'Submissions';
-    const sheetId = config.SUBMISSIONS_SHEET_ID;
-
-    const rows = await getRowsFromSheet(sheetId, sheetName, 2); // starts from row 2 (headers)
-    
-    let filtered = [];
-
-    if (stage === 'Not Contacted Yet') {
-      filtered = rows.filter(row =>
-        row['Stage'] === '' && row['Sub Date'] && row['Sub Date'].trim() !== ''
-      );
-    } else {
-      filtered = rows.filter(row => row['Stage'] === stage);
-    }
-
-    res.render('admin/subs', {
-      title: 'Subs',
-      activeTab: 'subs',
-      currentStage: stage,
-      submissions: filtered
-    });
-  } catch (err) {
-    console.error('Subs load error:', err);
-    res.status(500).render('error', { message: 'Failed to load Subs' });
-  }
-};
 
 // Future: Add more admin tab handlers here
