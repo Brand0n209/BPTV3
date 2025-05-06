@@ -17,5 +17,12 @@
     "ejs": "^3.1.9"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  },
+  "scripts": {
+    "build:css": "npx tailwindcss -c tailwind.config.js -i ./public/css/tailwind-src.css -o ./public/css/tailwind.css --minify",
+    "start": "node app.js"
+  }
 }
