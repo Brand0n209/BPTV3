@@ -1,0 +1,18 @@
+/**
+ * Customer routes for Bright Prodigy.
+ * All customer dashboard and future customer tab routes go here.
+ */
+const express = require('express');
+const router = express.Router();
+const { ensureLogin, ensureRole } = require('../lib/sessionHelpers');
+const customerController = require('../controllers/customerController');
+
+// All customer routes require login and customer role
+router.use(ensureLogin, ensureRole('customer'));
+
+// Customer dashboard (home)
+router.get('/', customerController.dashboard);
+
+// Future: Add more customer tab routes here
+
+module.exports = router;

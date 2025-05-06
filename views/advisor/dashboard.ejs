@@ -1,0 +1,11 @@
+<%- include('../partials/header', { title: 'Advisor Dashboard - Bright Prodigy' }) %>
+<%- include('../partials/topbar', { user }) %>
+<%- include('../partials/sidebar') %>
+<div class="main-container">
+  <div class="card">
+    <h2>Advisor Dashboard</h2>
+    <p>Welcome, <%= user ? user.userId : 'Advisor' %>! You are logged in as <strong>Advisor</strong>.</p>
+    <!-- Future: Add advisor dashboard tabs and widgets here -->
+  </div>
+</div>
+<%- include('../partials/footer') %>

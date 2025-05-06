@@ -1,0 +1,8 @@
+<div class="topbar">
+  <button id="nav-toggle" class="nav-toggle" aria-label="Open navigation">&#9776;</button>
+  <span class="app-title">Bright Prodigy</span>
+  <% if (user) { %>
+    <span class="user-info">Logged in as <%= user.userId %></span>
+  <% } %>
+</div>
+<script src="/js/nav.js"></script>

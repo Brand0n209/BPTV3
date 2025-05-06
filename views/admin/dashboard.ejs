@@ -1,0 +1,11 @@
+<%- include('../partials/header', { title: 'Admin Dashboard - Bright Prodigy' }) %>
+<%- include('../partials/topbar', { user }) %>
+<%- include('../partials/sidebar') %>
+<div class="main-container">
+  <div class="card">
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, <%= user ? user.userId : 'Admin' %>! You are logged in as <strong>Admin</strong>.</p>
+    <!-- Future: Add admin dashboard tabs and widgets here -->
+  </div>
+</div>
+<%- include('../partials/footer') %>
