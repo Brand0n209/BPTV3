@@ -66,26 +66,32 @@ app.post('/auth/login', async (req, res) => {
     const headers = values[0];
     const rows = values.slice(1);
 
-    // Find user by header name, not column index
-    const match = rows.find(row => {
-      const rowObj = {};
-      headers.forEach((h, i) => { rowObj[h] = row[i]; });
-      return rowObj['UserID'] === username && rowObj['Password'] === password;
-    });
+    // Ensure required headers exist
+    const userIdIdx = headers.indexOf('UserID');
+    const passwordIdx = headers.indexOf('Password');
+    const roleIdx = headers.indexOf('Role');
+    if (userIdIdx === -1 || passwordIdx === -1 || roleIdx === -1) {
+      return res.render('auth/login', { error: 'Sheet missing required columns: UserID, Password, or Role.' });
+    }
+
+    // Find user by correct column index
+    const match = rows.find(row =>
+      (row[userIdIdx] || '') === username && (row[passwordIdx] || '') === password
+    );
 
     if (match) {
-      // Map row to object for session
+      // Map row to object for session using header names
       const rowObj = {};
       headers.forEach((h, i) => { rowObj[h] = match[i]; });
       req.session.user = {
-        userId: rowObj['UserID'],
-        role: rowObj['Role'] || 'unknown',
+        userId: match[userIdIdx],
+        role: match[roleIdx] || 'unknown',
         firstName: rowObj['First Name'] || '',
         lastName: rowObj['Last Name'] || '',
         // Add more fields as needed
       };
       // Redirect based on role
-      switch (rowObj['Role']) {
+      switch (match[roleIdx]) {
         case 'admin':
           return res.redirect('/admin');
         case 'advisor':
