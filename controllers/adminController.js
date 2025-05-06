@@ -71,4 +71,91 @@ exports.settings = (req, res) => {
   });
 };
 
+const getSheetsClient = require('../lib/googleSheets');
+const {
+  SUBMISSIONS_SHEET_ID,
+  SUBMISSIONS_SHEET_NAME
+} = require('../config/config');
+
+/**
+ * Admin Subs tab handler with sub-tab filtering.
+ * Fetches and filters submissions from Google Sheets.
+ */
+exports.getSubs = async (req, res) => {
+  const filterType = req.params.filterType;
+  let submissions = [];
+  let error = null;
+
+  try {
+    const sheets = await getSheetsClient();
+    // Get headers from row 2
+    const headerRange = `${SUBMISSIONS_SHEET_NAME}!A2:Z2`;
+    const headerResp = await sheets.spreadsheets.values.get({
+      spreadsheetId: SUBMISSIONS_SHEET_ID,
+      range: headerRange,
+    });
+    const headers = (headerResp.data.values && headerResp.data.values[0]) || [];
+
+    // Get data rows starting from row 3
+    const dataRange = `${SUBMISSIONS_SHEET_NAME}!A3:Z`;
+    const dataResp = await sheets.spreadsheets.values.get({
+      spreadsheetId: SUBMISSIONS_SHEET_ID,
+      range: dataRange,
+    });
+    const dataRows = dataResp.data.values || [];
+
+    // Convert each row to an object
+    const allSubs = dataRows.map(row => {
+      const obj = {};
+      headers.forEach((header, i) => {
+        obj[header] = row[i] || '';
+      });
+      return obj;
+    });
+
+    // Filtering logic for each sub-tab
+    switch (filterType) {
+      case 'Not Contacted Yet':
+        submissions = allSubs.filter(
+          sub => sub['Sub Date'] && !sub['Stage']
+        );
+        break;
+      case 'Contacted':
+      case 'Waiting Cust Approval':
+      case 'Confirmed & Inputted':
+      case 'Not Interested after sub':
+      case 'Bad Lead':
+      case 'Contacted again, no reply':
+      case 'Fired':
+        submissions = allSubs.filter(
+          sub => sub['Stage'] === filterType
+        );
+        break;
+      default:
+        submissions = [];
+    }
+  } catch (err) {
+    error = 'Error fetching submissions from Google Sheets.';
+    submissions = [];
+  }
+
+  res.render('admin/subs', {
+    user: req.session.user,
+    activeTab: 'subs',
+    filterType,
+    submissions,
+    error,
+    subTabs: [
+      { label: 'Not Contacted Yet', value: 'Not Contacted Yet' },
+      { label: 'Contacted', value: 'Contacted' },
+      { label: 'Waiting Cust Approval', value: 'Waiting Cust Approval' },
+      { label: 'Confirmed & Inputted', value: 'Confirmed & Inputted' },
+      { label: 'Not Interested after sub', value: 'Not Interested after sub' },
+      { label: 'Bad Lead', value: 'Bad Lead' },
+      { label: 'Contacted again, no reply', value: 'Contacted again, no reply' },
+      { label: 'Fired', value: 'Fired' }
+    ]
+  });
+};
+
 // Future: Add more admin tab handlers here

@@ -45,4 +45,9 @@ router.get('/doc-hub', adminController.docHub);
  */
 router.get('/settings', adminController.settings);
 
+/**
+ * TODO: Admin Subs tab route (with sub-tab filtering)
+ */
+router.get('/subs/:filterType', adminController.getSubs);
+
 module.exports = router;

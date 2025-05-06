@@ -20,6 +20,14 @@ module.exports = {
 
   /**
    * =====================
+   * Submissions Sheet (Admin Subs Tab)
+   * =====================
+   */
+  SUBMISSIONS_SHEET_ID: process.env.SUBMISSIONS_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY',
+  SUBMISSIONS_SHEET_NAME: process.env.SUBMISSIONS_SHEET_NAME || 'Submissions',
+
+  /**
+   * =====================
    * Session
    * =====================
    */
