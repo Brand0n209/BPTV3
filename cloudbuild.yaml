@@ -5,6 +5,17 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA']
 
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'bright-prodigy-app',
+        '--image=us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA',
+        '--region=us-west2',
+        '--platform=managed',
+        '--allow-unauthenticated'
+      ]
+
 images:
   - 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA'
 
