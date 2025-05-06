@@ -5,7 +5,8 @@
  */
 module.exports = {
   // Main spreadsheet for login credentials
-  GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID || 'your-google-sheet-id',
+  // https://docs.google.com/spreadsheets/d/1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY/edit?gid=1207679114#gid=1207679114
+  GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY',
   GOOGLE_SHEET_TAB: process.env.GOOGLE_SHEET_TAB || 'Login Cred',
 
   /**
