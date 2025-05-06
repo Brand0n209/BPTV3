@@ -83,8 +83,16 @@ const {
  */
 exports.getSubs = async (req, res) => {
   const filterType = req.params.filterType;
+  const currentStage = filterType;
+  const stages = [
+    "Not Contacted Yet", "Contacted", "Waiting Cust Approval", 
+    "Confirmed & Inputted", "Not Interested after sub", 
+    "Bad Lead", "Contacted again, no reply", "Fired"
+  ];
   let submissions = [];
   let error = null;
+  let headers = [];
+  let rows = [];
 
   try {
     const sheets = await getSheetsClient();
@@ -94,7 +102,7 @@ exports.getSubs = async (req, res) => {
       spreadsheetId: SUBMISSIONS_SHEET_ID,
       range: headerRange,
     });
-    const headers = (headerResp.data.values && headerResp.data.values[0]) || [];
+    headers = (headerResp.data.values && headerResp.data.values[0]) || [];
 
     // Get data rows starting from row 3
     const dataRange = `${SUBMISSIONS_SHEET_NAME}!A3:Z`;
@@ -134,9 +142,14 @@ exports.getSubs = async (req, res) => {
       default:
         submissions = [];
     }
+
+    // Build rows array for table rendering
+    rows = submissions.map(sub => headers.map(h => sub[h] || ''));
   } catch (err) {
     error = 'Error fetching submissions from Google Sheets.';
     submissions = [];
+    headers = [];
+    rows = [];
   }
 
   const selectedRow = typeof req.query.selected !== 'undefined' ? parseInt(req.query.selected) : -1;
@@ -151,7 +164,11 @@ exports.getSubs = async (req, res) => {
     user: req.session.user,
     activeTab: 'subs',
     filterType,
+    currentStage,
+    stages,
     submissions,
+    headers,
+    rows,
     error,
     selectedRow,
     rowClasses,

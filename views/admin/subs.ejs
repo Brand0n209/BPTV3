@@ -6,71 +6,67 @@
     <%- include('../partials/topbar', { user, currentTab: filterType }) %>
     <div class="main-container">
       <div class="w-full max-w-3xl mx-auto">
-        <nav class="flex flex-wrap gap-2 mb-6" aria-label="Submissions Tabs">
-          <% subTabs.forEach(function(tab) { %>
-            <a href="/admin/subs/<%= encodeURIComponent(tab.value) %>"
-              class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition
-                shadow-sm border
-                <%= filterType === tab.value
-                  ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300'
-                  : 'bg-white text-blue-700 border-blue-300 hover:bg-blue-50 hover:shadow-md' %>
-                hover:-translate-y-0.5"
-              style="transition: box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.2s;">
-              <% if (tab.value === 'Not Contacted Yet') { %>
-                <!-- Clock/Time icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" /></svg>
-              <% } else if (tab.value === 'Contacted') { %>
-                <!-- Phone icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2zm10-10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-              <% } else if (tab.value === 'Waiting Cust Approval') { %>
-                <!-- Hourglass icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V4a4 4 0 018 0v3m0 10v3a4 4 0 01-8 0v-3m8-10H8m8 10H8" /></svg>
-              <% } else if (tab.value === 'Confirmed & Inputted') { %>
-                <!-- Checkmark icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-              <% } else if (tab.value === 'Not Interested after sub') { %>
-                <!-- X/Close icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              <% } else if (tab.value === 'Bad Lead') { %>
-                <!-- Exclamation icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              <% } else if (tab.value === 'Contacted again, no reply') { %>
-                <!-- Repeat/Arrow icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" /></svg>
-              <% } else if (tab.value === 'Fired') { %>
-                <!-- Fire icon -->
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0a7 7 0 00-7 7c0 3.866 3.134 7 7 7s7-3.134 7-7a7 7 0 00-7-7zm0 0V3" /></svg>
-              <% } %>
-              <span><%= tab.label %></span>
+        <!-- New Sub-Tabs UI (Filters) -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <% const stagesList = stages || [
+            "Not Contacted Yet", "Contacted", "Waiting Cust Approval", 
+            "Confirmed & Inputted", "Not Interested after sub", 
+            "Bad Lead", "Contacted again, no reply", "Fired"
+          ]; %>
+          <% stagesList.forEach(stage => { %>
+            <a href="/admin/subs/<%= encodeURIComponent(stage) %>"
+               class="px-4 py-2 rounded-full border border-blue-400 text-blue-600 hover:bg-blue-100 
+                      transition duration-200 flex items-center gap-2 <% if (currentStage === stage) { %>bg-blue-200 font-semibold<% } %>">
+              <% 
+                // Icon logic for each stage
+                let icon = '';
+                if (stage === "Not Contacted Yet") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" /></svg>`;
+                } else if (stage === "Contacted") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2zm10-10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>`;
+                } else if (stage === "Waiting Cust Approval") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V4a4 4 0 018 0v3m0 10v3a4 4 0 01-8 0v-3m8-10H8m8 10H8" /></svg>`;
+                } else if (stage === "Confirmed & Inputted") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
+                } else if (stage === "Not Interested after sub") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+                } else if (stage === "Bad Lead") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
+                } else if (stage === "Contacted again, no reply") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" /></svg>`;
+                } else if (stage === "Fired") {
+                  icon = `<svg class="w-[1em] h-[1em] align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0a7 7 0 00-7 7c0 3.866 3.134 7 7 7s7-3.134 7-7a7 7 0 00-7-7zm0 0V3" /></svg>`;
+                }
+              %>
+              <span class="flex items-center gap-1">
+                <%- icon %>
+                <span><%= stage %></span>
+              </span>
             </a>
           <% }) %>
-        </nav>
-        <% if (submissions && submissions.length > 0) { %>
-          <div class="flex flex-col h-[60vh] min-h-[400px] max-h-[70vh] bg-white rounded-lg shadow-lg border border-gray-300 overflow-hidden p-4">
-            <div class="overflow-x-auto w-full h-full">
-              <table class="min-w-[900px] w-full table-fixed">
-                <thead class="sticky top-0 z-10">
-                  <tr>
-                    <% Object.keys(submissions[0]).forEach(function(col) { %>
-                      <th class="px-4 py-2 border-b text-center text-xs font-bold text-gray-800 bg-blue-50 uppercase tracking-wide whitespace-nowrap min-w-[120px]">
-                        <%= col %>
-                      </th>
+        </div>
+
+        <!-- New Table Styling -->
+        <% if (rows && rows.length > 0) { %>
+          <div class="overflow-x-auto bg-white rounded shadow">
+            <table class="min-w-full text-sm text-left border border-gray-300">
+              <thead class="bg-blue-100 text-gray-700">
+                <tr>
+                  <% headers.forEach(header => { %>
+                    <th class="px-4 py-2 border-b font-semibold"><%= header %></th>
+                  <% }) %>
+                </tr>
+              </thead>
+              <tbody>
+                <% rows.forEach((row, index) => { %>
+                  <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-gray-50' %> hover:bg-blue-50">
+                    <% row.forEach(cell => { %>
+                      <td class="px-4 py-2 border-b"><%= cell %></td>
                     <% }) %>
                   </tr>
-                </thead>
-                <tbody class="overflow-y-auto">
-                  <% submissions.forEach(function(row, idx) { %>
-                    <tr
-                      class="<%= rowClasses[idx] %>"
-                      onclick="window.location.search = '?selected=' + <%= idx %>">
-                      <% Object.values(row).forEach(function(val) { %>
-                        <td class="px-4 py-2 border-b text-center text-sm text-gray-800 whitespace-nowrap"><%= val %></td>
-                      <% }) %>
-                    </tr>
-                  <% }) %>
-                </tbody>
-              </table>
-            </div>
+                <% }) %>
+              </tbody>
+            </table>
           </div>
         <% } else { %>
           <div class="text-center text-gray-500 py-12">
