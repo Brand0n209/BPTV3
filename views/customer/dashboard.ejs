@@ -1,11 +1,15 @@
 <%- include('../partials/header', { title: 'Customer Dashboard - Bright Prodigy' }) %>
-<%- include('../partials/topbar', { user }) %>
-<%- include('../partials/sidebar') %>
-<div class="main-container">
-  <div class="card">
-    <h2>Customer Dashboard</h2>
-    <p>Welcome, <%= user ? user.userId : 'Customer' %>! You are logged in as <strong>Customer</strong>.</p>
-    <!-- Future: Add customer dashboard tabs and widgets here -->
+<div class="layout-grid">
+  <%- include('../partials/sidebar') %>
+  <div style="width:100%">
+    <%- include('../partials/topbar', { user }) %>
+    <div class="main-container">
+      <div class="card">
+        <h2>Customer Dashboard</h2>
+        <p>Welcome, <%= user ? user.userId : 'Customer' %>! You are logged in as <strong>Customer</strong>.</p>
+        <!-- Future: Add customer dashboard tabs and widgets here -->
+      </div>
+    </div>
+    <%- include('../partials/footer') %>
   </div>
 </div>
-<%- include('../partials/footer') %>

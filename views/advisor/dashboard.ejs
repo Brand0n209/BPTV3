@@ -1,11 +1,15 @@
 <%- include('../partials/header', { title: 'Advisor Dashboard - Bright Prodigy' }) %>
-<%- include('../partials/topbar', { user }) %>
-<%- include('../partials/sidebar') %>
-<div class="main-container">
-  <div class="card">
-    <h2>Advisor Dashboard</h2>
-    <p>Welcome, <%= user ? user.userId : 'Advisor' %>! You are logged in as <strong>Advisor</strong>.</p>
-    <!-- Future: Add advisor dashboard tabs and widgets here -->
+<div class="layout-grid">
+  <%- include('../partials/sidebar') %>
+  <div style="width:100%">
+    <%- include('../partials/topbar', { user }) %>
+    <div class="main-container">
+      <div class="card">
+        <h2>Advisor Dashboard</h2>
+        <p>Welcome, <%= user && user.firstName ? user.firstName : 'Advisor' %>! You are logged in as <strong>Advisor</strong>.</p>
+        <!-- Future: Add advisor dashboard tabs and widgets here -->
+      </div>
+    </div>
+    <%- include('../partials/footer') %>
   </div>
 </div>
-<%- include('../partials/footer') %>

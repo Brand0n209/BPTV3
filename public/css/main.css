@@ -1,4 +1,4 @@
-/* main.css - Shared, minimal, mobile-first styles for Bright Prodigy */
+/* main.css - Symmetrical, professional, mobile-first styles for Bright Prodigy */
 
 body {
   font-family: 'Inter', Arial, sans-serif;
@@ -8,53 +8,73 @@ body {
   color: #222;
 }
 
-.main-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2em 1em;
+.layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+@media (min-width: 900px) {
+  .layout-grid {
+    grid-template-columns: 200px 1fr;
+  }
 }
 
 .sidebar {
   background: #fff;
   border-right: 1px solid #eee;
-  min-width: 180px;
-  padding: 1.5em 1em;
+  min-width: 200px;
+  padding: 2.5em 1.5em 2em 1.5em;
   height: 100vh;
   position: fixed;
   top: 0; left: 0;
   display: none;
+  box-sizing: border-box;
 }
 
 @media (min-width: 900px) {
   .sidebar {
     display: block;
   }
-  .main-container {
-    margin-left: 200px;
-  }
 }
 
 .topbar {
   background: #fff;
   border-bottom: 1px solid #eee;
-  padding: 1em;
+  padding: 1.25em 2em;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .nav-toggle {
   display: inline-block;
   background: none;
   border: none;
-  font-size: 1.5em;
+  font-size: 1.7em;
   cursor: pointer;
+  color: #007bff;
+  margin-right: 0.5em;
 }
 
 @media (min-width: 900px) {
   .topbar .nav-toggle {
     display: none;
   }
+}
+
+.main-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 3em 1.5em 2em 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  box-sizing: border-box;
 }
 
 .centered-content {
@@ -67,34 +87,121 @@ body {
 
 .card {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #eee;
-  padding: 2em;
-  margin: 2em 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px #e0e0e0;
+  padding: 2.5em 2em;
+  margin: 2.5em 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 0.7em;
+  font-size: 2em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+form {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  text-align: left;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 0.7em 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
 }
 
 a.button, button {
   background: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 0.7em 1.5em;
+  border-radius: 5px;
+  padding: 0.9em 2em;
   text-decoration: none;
-  font-size: 1em;
-  margin-top: 1em;
+  font-size: 1.1em;
+  margin-top: 1.2em;
   cursor: pointer;
   display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 4px #e0e0e0;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
-a.button:hover, button:hover {
+a.button:hover, button:hover, a.button:focus, button:focus {
   background: #0056b3;
+  box-shadow: 0 2px 8px #b3c6ff;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 1.5em;
+}
+
+.sidebar ul li:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar a {
+  color: #222;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.08em;
+  padding: 0.5em 0.7em;
+  border-radius: 4px;
+  display: block;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar a:hover, .sidebar a:focus {
+  background: #f0f4ff;
+  color: #007bff;
 }
 
 .error-message {
   color: #b00;
   margin-bottom: 1em;
   text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+footer {
+  margin-top: 2em;
+  color: #aaa;
+  font-size: 0.98em;
+  text-align: center;
+  padding-bottom: 1em;
 }

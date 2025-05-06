@@ -30,6 +30,7 @@ exports.login = async (req, res) => {
     const uidIndex = headers.indexOf('UserID');
     const passIndex = headers.indexOf('Password');
     const roleIndex = headers.indexOf('Role');
+    const firstNameIndex = headers.indexOf('First Name');
 
     if (uidIndex === -1 || passIndex === -1 || roleIndex === -1) {
       return res.render('auth/login', { error: 'Sheet missing required columns: UserID, Password, or Role.' });
@@ -41,6 +42,7 @@ exports.login = async (req, res) => {
       const user = {
         userId: match[uidIndex],
         role: match[roleIndex],
+        firstName: firstNameIndex !== -1 ? match[firstNameIndex] : ''
       };
       req.session.user = user;
       // Redirect to role-based dashboard

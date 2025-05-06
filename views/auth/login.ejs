@@ -1,18 +1,23 @@
 <%- include('../partials/header', { title: 'Login - Bright Prodigy' }) %>
-<%- include('../partials/topbar', { user: null }) %>
-<div class="centered-content">
-  <div class="card">
-    <h2>Login</h2>
-    <% if (error) { %>
-      <div class="error-message"><%= error %></div>
-    <% } %>
-    <form method="POST" action="/auth/login">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required autofocus>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Login</button>
-    </form>
+<div class="layout-grid">
+  <%- include('../partials/sidebar') %>
+  <div style="width:100%">
+    <%- include('../partials/topbar', { user: null }) %>
+    <div class="main-container">
+      <div class="card">
+        <h2>Login</h2>
+        <% if (error) { %>
+          <div class="error-message"><%= error %></div>
+        <% } %>
+        <form method="POST" action="/auth/login">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autofocus>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+    <%- include('../partials/footer') %>
   </div>
 </div>
-<%- include('../partials/footer') %>

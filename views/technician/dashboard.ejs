@@ -1,11 +1,15 @@
 <%- include('../partials/header', { title: 'Technician Dashboard - Bright Prodigy' }) %>
-<%- include('../partials/topbar', { user }) %>
-<%- include('../partials/sidebar') %>
-<div class="main-container">
-  <div class="card">
-    <h2>Technician Dashboard</h2>
-    <p>Welcome, <%= user ? user.userId : 'Technician' %>! You are logged in as <strong>Technician</strong>.</p>
-    <!-- Future: Add technician dashboard tabs and widgets here -->
+<div class="layout-grid">
+  <%- include('../partials/sidebar') %>
+  <div style="width:100%">
+    <%- include('../partials/topbar', { user }) %>
+    <div class="main-container">
+      <div class="card">
+        <h2>Technician Dashboard</h2>
+        <p>Welcome, <%= user && user.firstName ? user.firstName : 'Technician' %>! You are logged in as <strong>Technician</strong>.</p>
+        <!-- Future: Add technician dashboard tabs and widgets here -->
+      </div>
+    </div>
+    <%- include('../partials/footer') %>
   </div>
 </div>
-<%- include('../partials/footer') %>
