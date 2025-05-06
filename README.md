@@ -81,6 +81,6 @@ To automate builds on git push:
 
 pushupdates: "
 git add .
-git commit -m "Triggering first Cloud Build deployment"
+git commit -m "message"
 git push
 "
