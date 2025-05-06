@@ -3,6 +3,7 @@ steps:
     args:
       [
         'build',
+        '--no-cache',
         '-t', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA',
         '-t', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:latest',
         '.'
