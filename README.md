@@ -81,7 +81,7 @@ To automate builds on git push:
 
 pushupdates: "
 git add .
-git commit -m "Trigger rebuild to fix Docker CMD and start script"
+git commit -m "Trigger rebuild"
 git push
 
 

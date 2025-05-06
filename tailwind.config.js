@@ -5,7 +5,12 @@ module.exports = {
     "./public/js/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth: {
+        16: '4rem',   // same as w-16
+        56: '14rem',  // same as w-56
+      }
+    },
   },
   plugins: [],
 };
