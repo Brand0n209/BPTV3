@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/elemental-axle-458215/bright-prodigy-app', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/elemental-axle-458215/bright-prodigy-app']
+
+images:
+  - 'gcr.io/elemental-axle-458215/bright-prodigy-app'
+
+options:
+  logging: NONE
