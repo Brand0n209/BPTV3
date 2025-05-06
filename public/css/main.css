@@ -20,38 +20,6 @@ body {
   }
 }
 
-.sidebar {
-  background: #fff;
-  border-right: 1px solid #eee;
-  min-width: 240px;
-  max-width: 260px;
-  padding: 2.5em 2em 2em 2em;
-  height: 100vh;
-  position: fixed;
-  top: 0; left: 0;
-  display: none;
-  box-sizing: border-box;
-  z-index: 40;
-  transition: transform 0.2s;
-}
-
-/* Show sidebar as overlay on mobile when .open is toggled */
-.sidebar.open {
-  display: block;
-  box-shadow: 0 0 0 9999px rgba(0,0,0,0.2);
-  transform: translateX(0);
-}
-
-@media (min-width: 900px) {
-  .sidebar {
-    display: block;
-    box-shadow: none;
-    transform: none;
-  }
-  .sidebar.open {
-    box-shadow: none;
-  }
-}
 
 .topbar {
   background: #fff;
