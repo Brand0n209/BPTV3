@@ -71,118 +71,43 @@ exports.settings = (req, res) => {
   });
 };
 
-const getSheetsClient = require('../lib/googleSheets');
-const {
-  SUBMISSIONS_SHEET_ID,
-  SUBMISSIONS_SHEET_NAME
-} = require('../config/config');
+const { getSheetRowsByHeaders } = require('../lib/googleSheets');
+const config = require('../config/config');
 
-/**
- * Admin Subs tab handler with sub-tab filtering.
- * Fetches and filters submissions from Google Sheets.
- */
-exports.getSubs = async (req, res) => {
-  const filterType = req.params.filterType;
-  const currentStage = filterType;
-  const stages = [
-    "Not Contacted Yet", "Contacted", "Waiting Cust Approval", 
-    "Confirmed & Inputted", "Not Interested after sub", 
-    "Bad Lead", "Contacted again, no reply", "Fired"
-  ];
-  let submissions = [];
-  let error = null;
-  let headers = [];
-  let rows = [];
+// ... other handlers ...
+
+exports.subsView = async (req, res) => {
+  const stage = decodeURIComponent(req.params.stage || 'Not Contacted Yet');
+  const sheetId = config.GOOGLE_SHEET_ID || config.SUBMISSIONS_SHEET_ID;
+  const sheetName = config.SUBMISSIONS_SHEET_NAME || 'Submissions';
 
   try {
-    const sheets = await getSheetsClient();
-    // Get headers from row 2
-    const headerRange = `${SUBMISSIONS_SHEET_NAME}!A2:Z2`;
-    const headerResp = await sheets.spreadsheets.values.get({
-      spreadsheetId: SUBMISSIONS_SHEET_ID,
-      range: headerRange,
-    });
-    headers = (headerResp.data.values && headerResp.data.values[0]) || [];
+    const allRows = await getSheetRowsByHeaders(sheetId, sheetName, 2);
+    const headers = Object.keys(allRows[0] || {});
 
-    // Get data rows starting from row 3
-    const dataRange = `${SUBMISSIONS_SHEET_NAME}!A3:Z`;
-    const dataResp = await sheets.spreadsheets.values.get({
-      spreadsheetId: SUBMISSIONS_SHEET_ID,
-      range: dataRange,
-    });
-    const dataRows = dataResp.data.values || [];
-
-    // Convert each row to an object
-    const allSubs = dataRows.map(row => {
-      const obj = {};
-      headers.forEach((header, i) => {
-        obj[header] = row[i] || '';
-      });
-      return obj;
+    // Filter logic
+    const filteredRows = allRows.filter(row => {
+      if (stage === 'Not Contacted Yet') {
+        return row['Sub Date'] && !row['Stage'];
+      }
+      return row['Stage'] === stage;
     });
 
-    // Filtering logic for each sub-tab
-    switch (filterType) {
-      case 'Not Contacted Yet':
-        submissions = allSubs.filter(
-          sub => sub['Sub Date'] && !sub['Stage']
-        );
-        break;
-      case 'Contacted':
-      case 'Waiting Cust Approval':
-      case 'Confirmed & Inputted':
-      case 'Not Interested after sub':
-      case 'Bad Lead':
-      case 'Contacted again, no reply':
-      case 'Fired':
-        submissions = allSubs.filter(
-          sub => sub['Stage'] === filterType
-        );
-        break;
-      default:
-        submissions = [];
-    }
+    // Format rows into arrays
+    const tableRows = filteredRows.map(row =>
+      headers.map(header => row[header] || '')
+    );
 
-    // Build rows array for table rendering
-    rows = submissions.map(sub => headers.map(h => sub[h] || ''));
+    res.render('admin/subs', {
+      headers,
+      rows: tableRows,
+      currentStage: stage,
+      user: req.session.user
+    });
   } catch (err) {
-    error = 'Error fetching submissions from Google Sheets.';
-    submissions = [];
-    headers = [];
-    rows = [];
+    console.error('SubsView error:', err);
+    res.render('error', { message: 'Unable to load submissions.' });
   }
-
-  const selectedRow = typeof req.query.selected !== 'undefined' ? parseInt(req.query.selected) : -1;
-  const rowClasses = submissions.map((row, idx) => {
-    let cls = 'cursor-pointer transition';
-    cls += (idx % 2 === 0 ? ' bg-white' : ' bg-gray-50');
-    if (selectedRow === idx) cls += ' ring-2 ring-blue-400 bg-blue-100';
-    return cls;
-  });
-
-  res.render('admin/subs', {
-    user: req.session.user,
-    activeTab: 'subs',
-    filterType,
-    currentStage,
-    stages,
-    submissions,
-    headers,
-    rows,
-    error,
-    selectedRow,
-    rowClasses,
-    subTabs: [
-      { label: 'Not Contacted Yet', value: 'Not Contacted Yet' },
-      { label: 'Contacted', value: 'Contacted' },
-      { label: 'Waiting Cust Approval', value: 'Waiting Cust Approval' },
-      { label: 'Confirmed & Inputted', value: 'Confirmed & Inputted' },
-      { label: 'Not Interested after sub', value: 'Not Interested after sub' },
-      { label: 'Bad Lead', value: 'Bad Lead' },
-      { label: 'Contacted again, no reply', value: 'Contacted again, no reply' },
-      { label: 'Fired', value: 'Fired' }
-    ]
-  });
 };
 
 // Future: Add more admin tab handlers here

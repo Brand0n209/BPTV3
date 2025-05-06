@@ -1,6 +1,6 @@
 <nav
   id="sidebar"
-  class="sidebar group fixed top-0 left-0 h-full z-30 bg-blue-50 border-r border-blue-200 transition-all duration-300 ease-in-out w-16 hover:w-56 md:w-16 md:hover:w-56 flex flex-col items-center md:items-stretch"
+  class="sidebar group fixed top-12 left-0 h-[calc(100%-3rem)] z-30 bg-blue-50 border-r border-blue-200 transition-all duration-300 ease-in-out w-16 hover:w-56 md:w-16 md:hover:w-56 flex flex-col items-center md:items-stretch"
 >
   <!-- User Info -->
   <% if (user) { %>
@@ -8,11 +8,17 @@
       <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center text-blue-700 font-bold text-lg">
         <%= user.firstName ? user.firstName[0] : (user.email ? user.email[0] : 'U') %>
       </div>
-      <div class="hidden md:group-hover:block text-xs text-blue-700 font-semibold mt-1">
-        <%= user.firstName ? user.firstName : (user.email || 'User') %>
+      <div class="transition-all duration-300 w-full flex items-center">
+        <span class="sidebar-label ml-2 overflow-hidden whitespace-nowrap transition-all duration-300
+          w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 text-xs text-blue-700 font-semibold mt-1">
+          <%= user.firstName ? user.firstName : (user.email || 'User') %>
+        </span>
       </div>
-      <div class="hidden md:group-hover:block text-xs text-blue-400">
-        <%= user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : '' %>
+      <div class="transition-all duration-300 w-full flex items-center">
+        <span class="sidebar-label ml-2 overflow-hidden whitespace-nowrap transition-all duration-300
+          w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 text-xs text-blue-400">
+          <%= user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : '' %>
+        </span>
       </div>
     </div>
   <% } %>
@@ -21,19 +27,22 @@
     <% if (user && user.role === 'admin') { %>
       <li>
         <a href="/admin"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-all duration-200
+          class="flex items-center h-12 gap-3 px-3 py-2 rounded-lg font-medium transition-all duration-200
             <%= activeTab === 'home' ? 'bg-blue-100 text-blue-700 shadow-md border-l-4 border-blue-500' : 'text-blue-700 hover:bg-blue-200' %>">
-          <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+          <span class="flex-shrink-0 w-10 h-10 flex items-center justify-center">
             <!-- Home icon -->
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>
           </span>
-          <span class="hidden md:group-hover:inline">Home</span>
+          <span class="sidebar-label ml-2 overflow-hidden whitespace-nowrap transition-all duration-300
+            w-0 opacity-0 group-hover:w-auto group-hover:opacity-100">
+            Home
+          </span>
         </a>
       </li>
       <li>
         <a href="/admin/subs/Not%20Contacted%20Yet"
           class="flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-all duration-200
-            <%= activeTab === 'subs' ? 'bg-blue-100 text-blue-700 shadow-md border-l-4 border-blue-500' : 'text-blue-700 hover:bg-blue-200' %>">
+            <%= (activeTab === 'subs' || (typeof currentStage !== 'undefined')) ? 'bg-blue-100 text-blue-700 shadow-md border-l-4 border-blue-500' : 'text-blue-700 hover:bg-blue-200' %>">
           <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
             <!-- Subs icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M12 8v8" /></svg>
