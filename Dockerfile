@@ -8,7 +8,7 @@ COPY package.json ./
 RUN npm install
 
 # Copy the rest of the app
-COPY index.js ./
+COPY . .
 
 EXPOSE 8080
 
