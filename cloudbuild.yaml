@@ -1,11 +1,12 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/elemental-axle-458215/bright-prodigy-app', '.']
+    args: ['build', '-t', 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA', '.']
+
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/elemental-axle-458215/bright-prodigy-app']
+    args: ['push', 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA']
 
 images:
-  - 'gcr.io/elemental-axle-458215/bright-prodigy-app'
+  - 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA'
 
 options:
-  logging: NONE
+  logging: CLOUD_LOGGING_ONLY
