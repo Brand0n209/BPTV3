@@ -3,7 +3,7 @@
  * Handles login and logout logic using Google Sheets.
  */
 
-const getSheetsClient = require('../lib/googleSheets');
+const { getSheetsClient } = require('../lib/googleSheets');
 const config = require('../config/config');
 
 exports.loginForm = (req, res) => {
@@ -34,11 +34,9 @@ exports.login = async (req, res) => {
     const headers = rows[0];
     const dataRows = rows.slice(1);
 
-    // Log headers and first 3 data rows for debugging
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Login: Sheet headers:', headers);
-      console.log('Login: First 3 data rows:', dataRows.slice(0, 3));
-    }
+    // Log headers and first 3 data rows for debugging (TEMP: always log, even in production)
+    console.log('Login: Sheet headers:', headers);
+    console.log('Login: First 3 data rows:', dataRows.slice(0, 3));
 
     const uidIndex = headers.indexOf('UserID');
     const passIndex = headers.indexOf('Password');
@@ -75,7 +73,7 @@ exports.login = async (req, res) => {
       return res.render('auth/login', { error: 'Invalid UserID or Password.' });
     }
   } catch (err) {
-    // Log full error object for debugging
+    // Log full error object for debugging (TEMP: always log, even in production)
     console.error('Login error (full object):', err);
 
     // More specific error handling for Google Sheets issues
