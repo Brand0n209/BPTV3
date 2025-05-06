@@ -71,70 +71,38 @@ exports.settings = (req, res) => {
   });
 };
 
-const { getSheetRowsByHeaders } = require('../lib/googleSheets');
+const { getSheetRowsByHeaders, getRowsFromSheet } = require('../lib/googleSheets');
 const config = require('../config/config');
 
 // ... other handlers ...
 
-exports.subsView = async (req, res) => {
-  const stage = decodeURIComponent(req.params.stage || 'Not Contacted Yet');
-  const sheetId = config.GOOGLE_SHEET_ID || config.SUBMISSIONS_SHEET_ID;
-  const sheetName = config.SUBMISSIONS_SHEET_NAME || 'Submissions';
-
+exports.renderSubs = async (req, res) => {
   try {
-    const allRows = await getSheetRowsByHeaders(sheetId, sheetName, 2);
+    const stage = req.params.stage || 'Not Contacted Yet';
+    const sheetName = 'Submissions';
+    const sheetId = config.SUBMISSIONS_SHEET_ID;
 
-    // Debug: log raw rows
-    console.log('Raw rows from sheet:', allRows);
+    const rows = await getRowsFromSheet(sheetId, sheetName, 2); // starts from row 2 (headers)
+    
+    let filtered = [];
 
-    if (!allRows || allRows.length === 0) {
-      throw new Error('No data found in the sheet. Check if the sheet has at least 2 rows (header + data).');
+    if (stage === 'Not Contacted Yet') {
+      filtered = rows.filter(row =>
+        row['Stage'] === '' && row['Sub Date'] && row['Sub Date'].trim() !== ''
+      );
+    } else {
+      filtered = rows.filter(row => row['Stage'] === stage);
     }
 
-    const headers = Object.keys(allRows[0] || {});
-
-    // Define all possible stages except "Not Contacted Yet"
-    const allStages = [
-      "Contacted",
-      "Waiting Cust Approval",
-      "Confirmed & Inputted",
-      "Not Interested after sub",
-      "Bad Lead",
-      "Contacted again, no reply",
-      "Fired"
-    ];
-
-    // Filter logic
-    const filteredRows = allRows.filter(row => {
-      // Exclude blank rows (no Sub Date and all fields empty)
-      const isBlank = !row['Sub Date'] && Object.values(row).every(val => !val);
-      if (isBlank) return false;
-
-      if (stage === 'Not Contacted Yet') {
-        // Show rows where Stage is blank, null, or not in allStages, and Sub Date is present
-        return (
-          row['Sub Date'] &&
-          (
-            !row['Stage'] ||
-            !allStages.includes(row['Stage'])
-          )
-        );
-      }
-      return row['Stage'] === stage;
-    });
-
     res.render('admin/subs', {
-      headers,
-      rows: filteredRows,
+      title: 'Subs',
+      activeTab: 'subs',
       currentStage: stage,
-      user: req.session.user
+      submissions: filtered
     });
   } catch (err) {
-    console.error('SubsView error:', err);
-    res.render('error', { 
-      message: 'Unable to load submissions.<br><pre>' + (err && err.stack ? err.stack : err) + '</pre>',
-      user: req.session.user
-    });
+    console.error('Subs load error:', err);
+    res.status(500).render('error', { message: 'Failed to load Subs' });
   }
 };
 

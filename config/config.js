@@ -1,5 +1,24 @@
 /**
  * =====================
+ * CONFIG EXPORT SUMMARY
+ * =====================
+ * 
+ * Google Sheets API (Login)
+ *   - GOOGLE_SHEET_ID
+ *   - GOOGLE_SHEET_TAB
+ * 
+ * Submissions Sheet (Admin Subs Tab)
+ *   - SUBMISSIONS_SHEET_ID
+ *   - SUBMISSIONS_SHEET_NAME
+ * 
+ * Session
+ *   - SESSION_SECRET
+ * 
+ * All variables are grouped by section below for clarity.
+ */
+
+/**
+ * =====================
  * Google Sheets API (Login)
  * =====================
  */

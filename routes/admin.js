@@ -48,6 +48,7 @@ router.get('/settings', adminController.settings);
 /**
  * TODO: Admin Subs tab route (with sub-tab filtering)
  */
-router.get('/subs/:stage?', adminController.subsView);
+router.get('/subs', ensureRole('admin'), adminController.renderSubs);
+router.get('/subs/:stage', ensureRole('admin'), adminController.renderSubs);
 
 module.exports = router;
