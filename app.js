@@ -70,14 +70,22 @@ app.post('/auth/login', async (req, res) => {
     const userIdIdx = headers.indexOf('UserID');
     const passwordIdx = headers.indexOf('Password');
     const roleIdx = headers.indexOf('Role');
+    console.log('Sheet headers:', headers);
+    console.log('First data row:', rows[0]);
+    console.log('Login attempt:', { username, password });
     if (userIdIdx === -1 || passwordIdx === -1 || roleIdx === -1) {
       return res.render('auth/login', { error: 'Sheet missing required columns: UserID, Password, or Role.' });
     }
 
-    // Find user by correct column index
-    const match = rows.find(row =>
-      (row[userIdIdx] || '') === username && (row[passwordIdx] || '') === password
-    );
+    // Find user by correct column index, trimming whitespace and case-insensitive
+    const match = rows.find(row => {
+      const sheetUser = (row[userIdIdx] || '').trim();
+      const sheetPass = (row[passwordIdx] || '').trim();
+      return (
+        sheetUser.localeCompare(username.trim(), undefined, { sensitivity: 'accent' }) === 0 &&
+        sheetPass === password.trim()
+      );
+    });
 
     if (match) {
       // Map row to object for session using header names
