@@ -1,12 +1,12 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA']
+    args: ['push', 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA']
 
 images:
-  - 'gcr.io/brightprodigyapp/bright-prodigy-app:$COMMIT_SHA'
+  - 'us-west2-docker.pkg.dev/brightprodigyapp/prod-images/bright-prodigy-app:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
