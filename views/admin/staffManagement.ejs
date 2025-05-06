@@ -1,0 +1,13 @@
+<%- include('../partials/header', { title: 'Admin – Staff Management' }) %>
+<div class="layout-grid">
+  <%- include('../partials/sidebar', { user, activeTab: 'staffManagement' }) %>
+  <div style="width:100%">
+    <%- include('../partials/topbar', { user }) %>
+    <div class="main-container">
+      <div class="card flex flex-col items-center justify-center w-full max-w-xl text-center">
+        <h1 class="text-2xl font-semibold mb-2">Admin – Staff Management</h1>
+      </div>
+    </div>
+    <%- include('../partials/footer') %>
+  </div>
+</div>

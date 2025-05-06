@@ -2,14 +2,51 @@
   transform -translate-x-full md:translate-x-0 md:static md:block"
   id="sidebar">
   <ul class="flex flex-col gap-4 mt-8">
-    <li>
-      <a href="/<%= user && user.role ? user.role : '' %>"
-         class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition
-         <%= (typeof activeTab !== 'undefined' && activeTab === 'home') ? ' bg-blue-100 text-blue-700' : '' %>">
-        Home
-      </a>
-    </li>
-    <!-- Future: Add more dynamic links here based on user.role and available tabs -->
+    <% if (user && user.role === 'admin') { %>
+      <li>
+        <a href="/admin"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'home') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/admin/cust-payout"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'custPayout') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Cust Payout
+        </a>
+      </li>
+      <li>
+        <a href="/admin/customer-management"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'customerManagement') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Customer Management
+        </a>
+      </li>
+      <li>
+        <a href="/admin/staff-management"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'staffManagement') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Staff Management
+        </a>
+      </li>
+      <li>
+        <a href="/admin/referrals"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'referrals') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Referrals
+        </a>
+      </li>
+      <li>
+        <a href="/admin/doc-hub"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'docHub') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Doc Hub
+        </a>
+      </li>
+      <li>
+        <a href="/admin/settings"
+           class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-blue-50 hover:text-blue-600 transition<%= (activeTab === 'settings') ? ' bg-blue-100 text-blue-700' : '' %>">
+          Settings
+        </a>
+      </li>
+    <% } %>
+    <!-- TODO: Add sidebar links for other roles (advisor, technician, customer) -->
     <li>
       <a href="/logout"
          class="block px-4 py-2 rounded-md font-medium text-gray-800 hover:bg-red-50 hover:text-red-600 transition">
