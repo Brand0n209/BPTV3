@@ -1,35 +1,35 @@
 /**
  * =====================
- * Google Sheets API
+ * Google Sheets API (Login)
  * =====================
  */
+const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY';
+const GOOGLE_SHEET_TAB = process.env.GOOGLE_SHEET_TAB || 'Login Cred';
+
+/**
+ * =====================
+ * Submissions Sheet (Admin Subs Tab)
+ * =====================
+ */
+const SUBMISSIONS_SHEET_ID = process.env.SUBMISSIONS_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY';
+const SUBMISSIONS_SHEET_NAME = process.env.SUBMISSIONS_SHEET_NAME || 'Submissions';
+
+/**
+ * =====================
+ * Session
+ * =====================
+ */
+const SESSION_SECRET = process.env.SESSION_SECRET || 'your-session-secret';
+
 module.exports = {
-  // Main spreadsheet for login credentials
-  // https://docs.google.com/spreadsheets/d/1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY/edit?gid=1207679114#gid=1207679114
-  GOOGLE_SHEET_ID: process.env.GOOGLE_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY',
-  GOOGLE_SHEET_TAB: process.env.GOOGLE_SHEET_TAB || 'Login Cred',
+  // Google Sheets API (Login)
+  GOOGLE_SHEET_ID,
+  GOOGLE_SHEET_TAB,
 
-  /**
-   * =====================
-   * Job Tracking
-   * =====================
-   * Add future sheet IDs/names here for jobs, scheduling, payments, etc.
-   */
-  // JOBS_SHEET_ID: process.env.JOBS_SHEET_ID || '',
-  // SCHEDULING_SHEET_ID: process.env.SCHEDULING_SHEET_ID || '',
+  // Submissions Sheet (Admin Subs Tab)
+  SUBMISSIONS_SHEET_ID,
+  SUBMISSIONS_SHEET_NAME,
 
-  /**
-   * =====================
-   * Submissions Sheet (Admin Subs Tab)
-   * =====================
-   */
-  SUBMISSIONS_SHEET_ID: process.env.SUBMISSIONS_SHEET_ID || '1CplO6CZTxIXb8YWaBZqLX_8eindCvV3H7-X1pnu5fhY',
-  SUBMISSIONS_SHEET_NAME: process.env.SUBMISSIONS_SHEET_NAME || 'Submissions',
-
-  /**
-   * =====================
-   * Session
-   * =====================
-   */
-  SESSION_SECRET: process.env.SESSION_SECRET || 'your-session-secret',
+  // Session
+  SESSION_SECRET,
 };

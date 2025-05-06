@@ -12,6 +12,13 @@ exports.loginForm = (req, res) => {
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
+
+  // Log sheet config in development for debugging
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Login: Using Google Sheet ID:', config.GOOGLE_SHEET_ID);
+    console.log('Login: Using Google Sheet Tab:', config.GOOGLE_SHEET_TAB);
+  }
+
   try {
     const sheets = await getSheetsClient();
     const response = await sheets.spreadsheets.values.get({
@@ -63,7 +70,23 @@ exports.login = async (req, res) => {
     }
   } catch (err) {
     console.error('Login error:', err);
-    return res.render('auth/login', { error: 'Server error. Try again.' });
+
+    // More specific error handling for Google Sheets issues
+    let errorMsg = 'Server error. Try again.';
+    if (err && err.message) {
+      if (
+        err.message.includes('Unable to parse range') ||
+        err.message.includes('Requested entity was not found') ||
+        err.message.includes('No API key') ||
+        err.message.includes('PERMISSION_DENIED')
+      ) {
+        errorMsg = 'Google Sheet or tab not found, or access denied. Please check configuration.';
+      } else if (err.message.includes('invalid_grant')) {
+        errorMsg = 'Google API authentication failed. Contact admin.';
+      }
+    }
+
+    return res.render('auth/login', { error: errorMsg });
   }
 };
 
