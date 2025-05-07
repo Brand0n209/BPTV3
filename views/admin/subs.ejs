@@ -5,7 +5,13 @@
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
       <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
-      <nav class="flex justify-center w-full space-x-2 border-b border-blue-200 mb-6 overflow-x-auto pt-6" aria-label="Sub stages">
+      <nav class="flex justify-center w-full space-x-2 border-b border-blue-200 mb-6 overflow-x-auto pt-6 items-center" aria-label="Sub stages">
+        <!-- Plus Button for Add Sub -->
+        <button id="addSubBtn" type="button" class="flex items-center justify-center px-2 py-1.5 rounded-t-md bg-green-500 hover:bg-green-600 text-white text-xl font-bold focus:outline-none focus:ring-2 focus:ring-green-400 mr-2" title="Add Sub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 20 20" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5v10m5-5H5" />
+          </svg>
+        </button>
         <% tabList.forEach(tab => { %>
           <a
             href="/admin/subs?<%= 'stage=' + encodeURIComponent(tab) %>"
@@ -20,7 +26,7 @@
         <% }) %>
       </nav>
       <div class="content-area flex-1 flex flex-col overflow-hidden">
-        <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
+        <div class="table-container overflow-x-auto overflow-y-auto w-full max-w-full max-h-full border rounded bg-gray-50 p-4">
           <% 
             let displayRows = rows;
             const hasRows = displayRows && displayRows.length > 0; 
@@ -38,7 +44,8 @@
             <tbody>
               <% if (hasRows) { %>
                 <% displayRows.forEach((row, idx) => { %>
-                  <tr class="<%= idx % 2 === 0 ? 'bg-white' : 'bg-blue-100' %>">
+                  <tr class="sub-row <%= idx % 2 === 0 ? 'bg-white' : 'bg-blue-100' %> cursor-pointer hover:bg-blue-200 transition"
+                      data-row-index="<%= idx %>">
                     <% Object.values(row).forEach(val => { %>
                       <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap"><%= val %></td>
                     <% }) %>
@@ -57,3 +64,25 @@
     <%- include('../partials/footer') %>
   </div>
 </div>
+
+<!-- Add Sub Modal -->
+<div id="addSubModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl p-6 relative">
+    <button id="closeAddSubModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+    <div id="addSubModalContent"></div>
+  </div>
+</div>
+
+<!-- Edit Sub Modal -->
+<div id="editSubModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-3xl p-6 relative">
+    <button id="closeEditSubModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+    <div id="editSubModalContent"></div>
+  </div>
+</div>
+
+<!-- Expose subsFormOptions to JS -->
+<script>
+  window.SUBS_FORM_OPTIONS = <%- JSON.stringify(subsFormOptions) %>;
+</script>
+<script src="/js/subs.js"></script>

@@ -50,4 +50,9 @@ router.get('/settings', adminController.settings);
  */
 router.get('/subs', adminController.subsView);
 
+// Subs management endpoints
+router.post('/subs/add', adminController.addSub);
+router.post('/subs/edit', adminController.editSub);
+router.post('/subs/delete', adminController.deleteSub);
+
 module.exports = router;

@@ -118,11 +118,107 @@ exports.subsView = async (req, res) => {
       rows: filteredRows,
       activeTab: 'subs',
       stages,
-      currentStage
+      currentStage,
+      subsFormOptions: config.SUBS_FORM_OPTIONS
     });
   } catch (err) {
     console.error('Subs View Error:', err);
     res.status(500).render('error', { message: 'Failed to load subs tab' });
+  }
+};
+
+/**
+ * Add Sub - Append a new row to the external submissions sheet.
+ */
+exports.addSub = async (req, res) => {
+  try {
+    const { getSheetsClient } = require('../lib/googleSheets');
+    const sheets = await getSheetsClient();
+    const sheetId = config.EXTERNAL_SHEETS.SUBMISSIONS_SPREADSHEET_ID;
+    const sheetName = config.EXTERNAL_SHEETS.SUBMISSIONS_SHEET_NAME;
+    const headers = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: sheetName + '!1:1'
+    });
+    const headerRow = headers.data.values[0];
+    // Build row in correct order
+    const newRow = headerRow.map(h => req.body[h] || '');
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: sheetId,
+      range: sheetName,
+      valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
+      resource: { values: [newRow] }
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Add Sub Error:', err);
+    res.json({ success: false, message: err.message });
+  }
+};
+
+/**
+ * Edit Sub - Update an existing row by index.
+ * Expects rowIndex (0-based, not including header).
+ */
+exports.editSub = async (req, res) => {
+  try {
+    const { getSheetsClient } = require('../lib/googleSheets');
+    const sheets = await getSheetsClient();
+    const sheetId = config.EXTERNAL_SHEETS.SUBMISSIONS_SPREADSHEET_ID;
+    const sheetName = config.EXTERNAL_SHEETS.SUBMISSIONS_SHEET_NAME;
+    const headers = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: sheetName + '!1:1'
+    });
+    const headerRow = headers.data.values[0];
+    const rowIndex = parseInt(req.body.rowIndex, 10);
+    if (isNaN(rowIndex)) throw new Error('Invalid row index');
+    // +2: 1 for header, 1 for 1-based index
+    const sheetRow = rowIndex + 2;
+    const updateRow = headerRow.map(h => req.body[h] || '');
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: sheetId,
+      range: `${sheetName}!A${sheetRow}:` +
+        String.fromCharCode(65 + headerRow.length - 1) + `${sheetRow}`,
+      valueInputOption: 'USER_ENTERED',
+      resource: { values: [updateRow] }
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Edit Sub Error:', err);
+    res.json({ success: false, message: err.message });
+  }
+};
+
+/**
+ * Delete Sub - Clear an existing row by index.
+ * Expects rowIndex (0-based, not including header).
+ */
+exports.deleteSub = async (req, res) => {
+  try {
+    const { getSheetsClient } = require('../lib/googleSheets');
+    const sheets = await getSheetsClient();
+    const sheetId = config.EXTERNAL_SHEETS.SUBMISSIONS_SPREADSHEET_ID;
+    const sheetName = config.EXTERNAL_SHEETS.SUBMISSIONS_SHEET_NAME;
+    const headers = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: sheetName + '!1:1'
+    });
+    const headerRow = headers.data.values[0];
+    const rowIndex = parseInt(req.body.rowIndex, 10);
+    if (isNaN(rowIndex)) throw new Error('Invalid row index');
+    // +2: 1 for header, 1 for 1-based index
+    const sheetRow = rowIndex + 2;
+    await sheets.spreadsheets.values.clear({
+      spreadsheetId: sheetId,
+      range: `${sheetName}!A${sheetRow}:` +
+        String.fromCharCode(65 + headerRow.length - 1) + `${sheetRow}`
+    });
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Delete Sub Error:', err);
+    res.json({ success: false, message: err.message });
   }
 };
 
