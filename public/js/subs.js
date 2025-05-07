@@ -284,6 +284,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Event Listeners and Logic ---
 
+  // Utility: Check for modal visibility conflicts
+  function checkModalVisibilityIssues(modal) {
+    let el = modal;
+    let i = 0;
+    while (el && el !== document.body && i < 10) {
+      const cs = window.getComputedStyle(el);
+      if (el.classList.contains('invisible')) {
+        console.warn('Modal or parent has class "invisible":', el);
+      }
+      if (cs.overflow === 'hidden') {
+        console.warn('Modal or parent has overflow:hidden:', el);
+      }
+      if (cs.zIndex === '0') {
+        console.warn('Modal or parent has z-index:0:', el);
+      }
+      if (cs.display === 'none') {
+        console.warn('Modal or parent has display:none:', el);
+      }
+      if (cs.visibility === 'hidden') {
+        console.warn('Modal or parent has visibility:hidden:', el);
+      }
+      el = el.parentElement;
+      i++;
+    }
+  }
+
   // Open Add Sub Modal
   addSubBtn && addSubBtn.addEventListener('click', function () {
     // Always hide the main content area (table/search) using Tailwind classes
@@ -296,6 +322,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Always show the modal using Tailwind classes
     addSubModal.classList.remove('hidden');
     addSubModal.classList.add('block');
+    // Check for modal visibility issues
+    checkModalVisibilityIssues(addSubModal);
   });
 
   // Close Add Sub Modal
