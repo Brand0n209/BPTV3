@@ -1,11 +1,11 @@
 <%- include('../partials/header', { title: 'Subs - Admin - Bright Prodigy' }) %>
 <div class="flex flex-row min-h-screen w-full">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
-  <div class="main-content flex-1 flex flex-col ml-16" style="min-width:0;">
+  <div class="main-content flex-1 flex flex-col ml-20" style="min-width:0;">
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     <div class="flex flex-row h-[calc(100vh-4rem)]">
       <!-- Sub-Tabs Vertical Sidebar -->
-      <nav aria-label="Sub stages" class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
+      <nav aria-label="Sub stages" class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40 ml-16">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
         <ul>
           <% tabList.forEach(tab => { %>
