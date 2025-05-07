@@ -48,13 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table rows clickable for editing
   document.querySelectorAll('.sub-row').forEach(row => {
     row.addEventListener('click', function () {
-      const rowIndex = parseInt(row.getAttribute('data-row-index'), 10);
       const table = row.closest('table');
       const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
       const values = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
       const rowData = {};
       headers.forEach((h, i) => { rowData[h] = values[i]; });
-      renderEditSubForm(rowData, rowIndex);
+      // Pass unique fields for backend matching
+      renderEditSubForm(rowData);
       editSubModal.classList.remove('hidden');
     });
   });
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Render Edit Sub Form
-  function renderEditSubForm(rowData, rowIndex) {
+  function renderEditSubForm(rowData) {
     const opts = window.SUBS_FORM_OPTIONS || {};
     editSubModalContent.innerHTML = getSubFormHTML('edit', rowData, opts);
 
@@ -81,13 +81,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = editSubModalContent.querySelector('form');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      handleEditSubSubmit(form, rowIndex);
+      handleEditSubSubmit(form, rowData);
     });
     const deleteBtn = editSubModalContent.querySelector('#deleteSubBtn');
     if (deleteBtn) {
       deleteBtn.addEventListener('click', function () {
         if (confirm('Are you sure you want to delete this sub? This cannot be undone.')) {
-          handleDeleteSub(rowData, rowIndex);
+          handleDeleteSub(rowData);
         }
       });
     }
@@ -218,9 +218,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Handle Edit Sub Submit
-  function handleEditSubSubmit(form, rowIndex) {
+  function handleEditSubSubmit(form, rowData) {
     const data = getFormData(form);
-    data.rowIndex = rowIndex;
+    // Add unique fields for backend matching
+    data["Sub Date"] = rowData["Sub Date"] || rowData["Pref Service Date (LIGHTING)"] || "";
+    data["First Name"] = rowData["First Name"] || "";
+    data["Last Name"] = rowData["Last Name"] || "";
     const loading = form.querySelector('#editSubLoading');
     const success = form.querySelector('#editSubSuccess');
     loading && loading.classList.remove('hidden');
@@ -250,14 +253,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Handle Delete Sub
-  function handleDeleteSub(rowData, rowIndex) {
+  function handleDeleteSub(rowData) {
     const loading = document.getElementById('editSubLoading');
     const success = document.getElementById('editSubSuccess');
     loading && loading.classList.remove('hidden');
     fetch('/admin/subs/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ rowIndex, ...rowData })
+      body: JSON.stringify({
+        "Sub Date": rowData["Sub Date"] || rowData["Pref Service Date (LIGHTING)"] || "",
+        "First Name": rowData["First Name"] || "",
+        "Last Name": rowData["Last Name"] || ""
+      })
     }).then(res => res.json())
       .then(resp => {
         loading && loading.classList.add('hidden');
