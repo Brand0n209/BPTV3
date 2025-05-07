@@ -1,18 +1,16 @@
 <%- include('../partials/header', { title: 'Subs - Admin - Bright Prodigy' }) %>
 <div class="flex min-h-screen w-full group">
   <!-- Sidebar -->
-  <aside class="bg-white w-16 hover:w-56 transition-all duration-300 sticky top-0 z-40">
-    <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
-  </aside>
+  <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
   <!-- Main content wrapper -->
-  <div class="flex-1 flex flex-col ml-16 group-hover:ml-56 transition-all duration-300">
+  <div class="flex-1 flex flex-col">
     <!-- Topbar -->
     <header class="sticky top-0 z-30 bg-white border-b">
       <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     </header>
     <div class="flex flex-row h-full">
       <!-- Sub-tabs sidebar (vertical stack) -->
-      <nav aria-label="Sub stages" class="w-56 bg-gray-50 border-r sticky top-[4rem] h-[calc(100vh-4rem)] overflow-y-auto">
+      <nav aria-label="Sub stages" class="subtabs-nav sticky top-[4rem] h-[calc(100vh-4rem)] overflow-y-auto z-40">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
         <ul>
           <% tabList.forEach(tab => { %>
