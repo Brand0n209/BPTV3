@@ -1,20 +1,4 @@
 <%- include('../partials/header', { title: 'Subs - Admin - Bright Prodigy' }) %>
-<%
-  // Inline EJS function for rendering a checkbox group
-  function renderCheckboxGroup(name, options) { %>
-    <fieldset class="mb-2">
-      <legend class="block text-sm font-medium text-gray-700 mb-1"><%= name %></legend>
-      <% options.forEach(function(opt) { %>
-        <div class="flex items-center mt-1">
-          <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="<%= name %>" value="<%= opt %>" id="addsub-<%= name.replace(/\s+/g, '') %>-<%= opt.replace(/\s+/g, '') %>">
-          <label for="addsub-<%= name.replace(/\s+/g, '') %>-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-        </div>
-      <% }) %>
-    </fieldset>
-<% }
-  // Pre-merge lighting options
-  const lightingOptions = subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT);
-%>
 <div class="layout-grid min-h-screen h-screen">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
   <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
@@ -45,105 +29,200 @@
           <div class="mb-6">
             <h2 class="text-2xl font-bold text-blue-900">Add Sub</h2>
           </div>
-          <form id="addSubForm" autocomplete="off" class="relative bg-white p-6 rounded-lg shadow w-full" style="position:relative;">
+          <form id="addSubForm" autocomplete="off" class="relative bg-white p-6 rounded-lg shadow w-full">
             <!-- Row 1: First Name, Last Name, Phone Number, Email -->
-            <div class="grid grid-cols-4 gap-4 mb-4 bg-red-200">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
-                <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="First Name">
+                <label for="firstName" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
+                <input id="firstName" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="First Name" aria-describedby="firstName-error">
+                <p id="firstName-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Last Name <span class="text-red-500">*</span></label>
-                <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Last Name">
+                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name <span class="text-red-500">*</span></label>
+                <input id="lastName" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Last Name" aria-describedby="lastName-error">
+                <p id="lastName-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Phone Number <span class="text-red-500">*</span></label>
-                <input type="tel" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Phone Number">
+                <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number <span class="text-red-500">*</span></label>
+                <input id="phoneNumber" type="tel" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Phone Number" aria-describedby="phoneNumber-error">
+                <p id="phoneNumber-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Email">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input id="email" type="email" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Email" aria-describedby="email-error">
+                <p id="email-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
             </div>
             <!-- Row 2: Address (col-span-2), City, Home Stories -->
-            <div class="grid grid-cols-4 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Address <span class="text-red-500">*</span></label>
-                <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Address">
+                <label for="address" class="block text-sm font-medium text-gray-700">Address <span class="text-red-500">*</span></label>
+                <input id="address" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Address" aria-describedby="address-error">
+                <p id="address-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
-                <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="City">
+                <label for="city" class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
+                <input id="city" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="City" aria-describedby="city-error">
+                <p id="city-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Home Stories <span class="text-red-500">*</span></label>
-                <select class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Home Stories">
+                <label for="homeStories" class="block text-sm font-medium text-gray-700">Home Stories <span class="text-red-500">*</span></label>
+                <select id="homeStories" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Home Stories" aria-describedby="homeStories-error">
                   <% subsFormOptions.HOME_STORIES.forEach(function(opt) { %>
                     <option value="<%= opt %>"><%= opt %></option>
                   <% }) %>
                 </select>
+                <p id="homeStories-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
             </div>
             <!-- Row 3: Lighting Block (custom grid) -->
-            <div class="grid grid-cols-6 gap-4 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
               <!-- Lighting Options (col-span-2) -->
               <div class="md:col-span-2">
-                <%= renderCheckboxGroup('Lighting Options', lightingOptions) %>
+                <fieldset class="mb-4">
+                  <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Options</legend>
+                  <div class="flex flex-wrap gap-4">
+                    <% subsFormOptions.LIGHTING_OPTIONS.forEach(function(opt, idx) { 
+                      var id = `addsub-LightingOptions-${opt.replace(/\s+/g, '')}`;
+                    %>
+                      <div class="flex items-center">
+                        <input 
+                          class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          type="checkbox"
+                          name="Lighting Options"
+                          value="<%= opt %>"
+                          id="<%= id %>"
+                          aria-describedby="<%= id %>-error"
+                        >
+                        <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                      </div>
+                    <% }) %>
+                  </div>
+                  <p id="addsub-LightingOptions-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                </fieldset>
               </div>
               <!-- Lighting Sides (col-span-2) -->
               <div class="md:col-span-2">
-                <%= renderCheckboxGroup('Lighting Sides', subsFormOptions.LIGHTING_SIDES) %>
+                <fieldset class="mb-4">
+                  <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Sides</legend>
+                  <div class="flex flex-wrap gap-4">
+                    <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt, idx) { 
+                      var id = `addsub-LightingSides-${opt.replace(/\s+/g, '')}`;
+                    %>
+                      <div class="flex items-center">
+                        <input 
+                          class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          type="checkbox"
+                          name="Lighting Sides"
+                          value="<%= opt %>"
+                          id="<%= id %>"
+                          aria-describedby="<%= id %>-error"
+                        >
+                        <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                      </div>
+                    <% }) %>
+                  </div>
+                  <p id="addsub-LightingSides-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                </fieldset>
               </div>
               <!-- Pref Service Date (LIGHTING) and Measure (stacked), Lighting notes (row-span-2) -->
               <div class="md:col-span-2 grid grid-rows-3 gap-2 h-full">
                 <div class="row-span-1">
-                  <label class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
-                  <input type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)">
+                  <label for="prefServiceDateLighting" class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
+                  <input id="prefServiceDateLighting" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)" aria-describedby="prefServiceDateLighting-error">
+                  <p id="prefServiceDateLighting-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
                 </div>
                 <div class="row-span-1">
-                  <label class="block text-sm font-medium text-gray-700">Measure</label>
-                  <select class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure">
+                  <label for="measure" class="block text-sm font-medium text-gray-700">Measure</label>
+                  <select id="measure" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure" aria-describedby="measure-error">
                     <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
                       <option value="<%= opt %>"><%= opt %></option>
                     <% }) %>
                   </select>
+                  <p id="measure-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
                 </div>
                 <div class="row-span-1 row-start-3 row-end-4 h-full">
-                  <label class="block text-sm font-medium text-gray-700">Lighting notes</label>
-                  <textarea class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4"></textarea>
+                  <label for="lightingNotes" class="block text-sm font-medium text-gray-700">Lighting notes</label>
+                  <textarea id="lightingNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4" aria-describedby="lightingNotes-error"></textarea>
+                  <p id="lightingNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
                 </div>
               </div>
             </div>
             <!-- Row 4: Solar Block -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div>
-                <%= renderCheckboxGroup('Solar Selected Services', subsFormOptions.SOLAR_SERVICES) %>
+                <fieldset class="mb-4">
+                  <legend class="block text-sm font-medium text-gray-700 mb-1">Solar Selected Services</legend>
+                  <div class="flex flex-wrap gap-4">
+                    <% subsFormOptions.SOLAR_SERVICES.forEach(function(opt, idx) { 
+                      var id = `addsub-SolarSelectedServices-${opt.replace(/\s+/g, '')}`;
+                    %>
+                      <div class="flex items-center">
+                        <input 
+                          class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          type="checkbox"
+                          name="Solar Selected Services"
+                          value="<%= opt %>"
+                          id="<%= id %>"
+                          aria-describedby="<%= id %>-error"
+                        >
+                        <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                      </div>
+                    <% }) %>
+                  </div>
+                  <p id="addsub-SolarSelectedServices-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                </fieldset>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Pref Service Date (SOLAR)</label>
-                <input type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (SOLAR)">
+                <label for="prefServiceDateSolar" class="block text-sm font-medium text-gray-700">Pref Service Date (SOLAR)</label>
+                <input id="prefServiceDateSolar" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (SOLAR)" aria-describedby="prefServiceDateSolar-error">
+                <p id="prefServiceDateSolar-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Solar Panels</label>
-                <input type="number" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar Panels">
+                <label for="solarPanels" class="block text-sm font-medium text-gray-700">Solar Panels</label>
+                <input id="solarPanels" type="number" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar Panels" aria-describedby="solarPanels-error">
+                <p id="solarPanels-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700">Solar notes</label>
-                <textarea class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar notes" rows="2"></textarea>
+                <label for="solarNotes" class="block text-sm font-medium text-gray-700">Solar notes</label>
+                <textarea id="solarNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar notes" rows="2" aria-describedby="solarNotes-error"></textarea>
+                <p id="solarNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
             </div>
             <!-- Row 5: Gutter Block -->
             <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
               <div class="md:col-span-2">
-                <%= renderCheckboxGroup('Gutter Selected Service', subsFormOptions.GUTTER_SERVICES) %>
+                <fieldset class="mb-4">
+                  <legend class="block text-sm font-medium text-gray-700 mb-1">Gutter Selected Service</legend>
+                  <div class="flex flex-wrap gap-4">
+                    <% subsFormOptions.GUTTER_SERVICES.forEach(function(opt, idx) { 
+                      var id = `addsub-GutterSelectedService-${opt.replace(/\s+/g, '')}`;
+                    %>
+                      <div class="flex items-center">
+                        <input 
+                          class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          type="checkbox"
+                          name="Gutter Selected Service"
+                          value="<%= opt %>"
+                          id="<%= id %>"
+                          aria-describedby="<%= id %>-error"
+                        >
+                        <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                      </div>
+                    <% }) %>
+                  </div>
+                  <p id="addsub-GutterSelectedService-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                </fieldset>
               </div>
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Pref Service Date (GUTTER)</label>
-                <input type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (GUTTER)">
+                <label for="prefServiceDateGutter" class="block text-sm font-medium text-gray-700">Pref Service Date (GUTTER)</label>
+                <input id="prefServiceDateGutter" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (GUTTER)" aria-describedby="prefServiceDateGutter-error">
+                <p id="prefServiceDateGutter-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
               <div class="md:col-span-4">
-                <label class="block text-sm font-medium text-gray-700">Gutter notes</label>
-                <textarea class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Gutter notes" rows="2"></textarea>
+                <label for="gutterNotes" class="block text-sm font-medium text-gray-700">Gutter notes</label>
+                <textarea id="gutterNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Gutter notes" rows="2" aria-describedby="gutterNotes-error"></textarea>
+                <p id="gutterNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
               </div>
             </div>
             <div class="flex justify-end mt-6">

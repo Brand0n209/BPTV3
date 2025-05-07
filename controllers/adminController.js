@@ -113,13 +113,22 @@ exports.subsView = async (req, res) => {
       filteredRows = rows.filter(r => r["Stage"] === currentStage);
     }
 
+    // Pre-merge lighting options for the form
+    const lightingOptions = [
+      ...config.SUBS_FORM_OPTIONS.LIGHTING_OPTIONS_TEMPORARY,
+      ...config.SUBS_FORM_OPTIONS.LIGHTING_OPTIONS_PERMANENT
+    ];
+    const subsFormOptions = {
+      ...config.SUBS_FORM_OPTIONS,
+      LIGHTING_OPTIONS: lightingOptions
+    };
     res.render('admin/subs', {
       user: req.session.user,
       rows: filteredRows,
       activeTab: 'subs',
       stages,
       currentStage,
-      subsFormOptions: config.SUBS_FORM_OPTIONS
+      subsFormOptions
     });
   } catch (err) {
     console.error('Subs View Error:', err);
