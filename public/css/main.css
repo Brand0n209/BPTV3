@@ -273,3 +273,9 @@ footer {
   border-left: 4px solid #3b82f6;
   box-shadow: 0 2px 8px #b3c6ff;
 }
+
+/* Sidebar hover expands main content margin */
+#sidebar:hover ~ .main-content {
+  margin-left: 14rem; /* 56 (expanded width) */
+  transition: margin-left 0.3s;
+}
