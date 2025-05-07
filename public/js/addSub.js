@@ -154,6 +154,11 @@
   // Initialize when DOM is ready
   document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('addSubForm')) {
+      // Always hide overlays on load
+      var loading = document.getElementById('addSubLoadingOverlay');
+      var success = document.getElementById('addSubSuccessMsg');
+      if (loading) loading.classList.add('hidden');
+      if (success) success.classList.add('hidden');
       initAddSub();
     }
   });
