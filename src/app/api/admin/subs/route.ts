@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSheetRowsByHeaders, appendRowByHeaders } from "@/lib/googleSheets";
 import { SUBMISSIONS_SHEET_ID, SUBMISSIONS_SHEET_NAME, SUBS_FORM_OPTIONS } from "@/lib/config";
-import { ensureLogin, ensureRole } from "@/lib/session";
 
 // GET: Fetch and filter subs data
 export async function GET(request: NextRequest) {
@@ -52,8 +51,9 @@ export async function GET(request: NextRequest) {
       currentStage,
       subsFormOptions
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: "Failed to load subs tab", details: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: "Failed to load subs tab", details: message }, { status: 500 });
   }
 }
 
@@ -85,7 +85,8 @@ export async function POST(request: NextRequest) {
       row
     );
     return NextResponse.json({ success: true });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, message: err.message || "Failed to add sub" }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ success: false, message: message || "Failed to add sub" }, { status: 500 });
   }
 }

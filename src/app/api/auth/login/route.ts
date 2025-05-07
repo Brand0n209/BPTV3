@@ -43,17 +43,18 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json({ error: "Invalid UserID or Password." }, { status: 401 });
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     let errorMsg = "Server error. Try again.";
-    if (err && err.message) {
+    const message = err instanceof Error ? err.message : "";
+    if (message) {
       if (
-        err.message.includes("Unable to parse range") ||
-        err.message.includes("Requested entity was not found") ||
-        err.message.includes("No API key") ||
-        err.message.includes("PERMISSION_DENIED")
+        message.includes("Unable to parse range") ||
+        message.includes("Requested entity was not found") ||
+        message.includes("No API key") ||
+        message.includes("PERMISSION_DENIED")
       ) {
         errorMsg = "Google Sheet or tab not found, or access denied. Please check configuration.";
-      } else if (err.message.includes("invalid_grant")) {
+      } else if (message.includes("invalid_grant")) {
         errorMsg = "Google API authentication failed. Contact admin.";
       }
     }
