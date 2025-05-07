@@ -243,9 +243,12 @@ document.addEventListener('DOMContentLoaded', function () {
             success && success.classList.add('hidden');
             form.reset();
             document.getElementById('addSubModal').classList.add('hidden');
-            // Restore table/search area
+            // Restore table/search area using Tailwind classes
             const contentArea = document.querySelector('.content-area');
-            if (contentArea) contentArea.style.display = '';
+            if (contentArea) {
+              contentArea.classList.remove('hidden');
+              contentArea.classList.add('block');
+            }
             window.location.reload();
           }, 1200);
         } else {
@@ -281,9 +284,12 @@ document.addEventListener('DOMContentLoaded', function () {
             success && success.classList.add('hidden');
             form.reset();
             document.getElementById('editSubModal').classList.add('hidden');
-            // Restore table/search area
+            // Restore table/search area using Tailwind classes
             const contentArea = document.querySelector('.content-area');
-            if (contentArea) contentArea.style.display = '';
+            if (contentArea) {
+              contentArea.classList.remove('hidden');
+              contentArea.classList.add('block');
+            }
             window.location.reload();
           }, 1200);
         } else {
@@ -317,9 +323,12 @@ document.addEventListener('DOMContentLoaded', function () {
           setTimeout(() => {
             success && success.classList.add('hidden');
             document.getElementById('editSubModal').classList.add('hidden');
-            // Restore table/search area
+            // Restore table/search area using Tailwind classes
             const contentArea = document.querySelector('.content-area');
-            if (contentArea) contentArea.style.display = '';
+            if (contentArea) {
+              contentArea.classList.remove('hidden');
+              contentArea.classList.add('block');
+            }
             window.location.reload();
           }, 1200);
         } else {
