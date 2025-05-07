@@ -30,7 +30,130 @@
             <h2>Add Sub</h2>
           </div>
           <form id="addSubForm" autocomplete="off" style="position:relative;">
-            <div id="addSubFields"></div>
+            <div class="row w-100">
+              <div class="col-md-3 mb-3">
+                <label class="form-label">First Name <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="First Name">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Last Name <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="Last Name">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Phone Number <span style="color:red">*</span></label>
+                <input type="tel" class="form-control" name="Phone Number">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="Email">
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Referral <span style="color:red">*</span></label>
+                <select class="form-select" name="Referral">
+                  <% subsFormOptions.REFERRAL_SOURCES.forEach(function(opt) { %>
+                    <option value="<%= opt %>"><%= opt %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Address <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="Address">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">City <span style="color:red">*</span></label>
+                <input type="text" class="form-control" name="City">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Home Stories <span style="color:red">*</span></label>
+                <select class="form-select" name="Home Stories">
+                  <% subsFormOptions.HOME_STORIES.forEach(function(opt) { %>
+                    <option value="<%= opt %>"><%= opt %></option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+            <!-- Lighting Block -->
+            </div>
+            <div class="row w-100">
+              <div class="col-md-6 mb-3" style="display:flex; gap:16px;">
+                <div style="flex:1; min-width:0;">
+                  <label class="form-label">Lighting Options</label>
+                  <% subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT).forEach(function(opt) { %>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="Lighting Options" value="<%= opt %>" id="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>">
+                      <label class="form-check-label" for="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>"><%= opt %></label>
+                    </div>
+                  <% }) %>
+                </div>
+                <div style="flex:1; min-width:0;">
+                  <label class="form-label">Lighting Sides</label>
+                  <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt) { %>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="Lighting Sides" value="<%= opt %>" id="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>">
+                      <label class="form-check-label" for="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>"><%= opt %></label>
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Pref Service Date (LIGHTING)</label>
+                <input type="date" class="form-control" name="Pref Service Date (LIGHTING)">
+                <label class="form-label">Measure</label>
+                <select class="form-select" name="Measure">
+                  <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
+                    <option value="<%= opt %>"><%= opt %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-3 mb-3" style="display:flex; flex-direction:column; height:100%;">
+                <label class="form-label">Lighting notes</label>
+                <textarea class="form-control" name="Lighting notes" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Solar Selected Services</label>
+                <% subsFormOptions.SOLAR_SERVICES.forEach(function(opt) { %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="Solar Selected Services" value="<%= opt %>" id="addsub-SolarSelectedServices-<%= opt.replace(/\s+/g, '') %>">
+                    <label class="form-check-label" for="addsub-SolarSelectedServices-<%= opt.replace(/\s+/g, '') %>"><%= opt %></label>
+                  </div>
+                <% }) %>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Pref Service Date (SOLAR)</label>
+                <input type="date" class="form-control" name="Pref Service Date (SOLAR)">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Solar Panels</label>
+                <input type="number" class="form-control" name="Solar Panels">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Solar notes</label>
+                <textarea class="form-control" name="Solar notes" rows="2"></textarea>
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Gutter Selected Service</label>
+                <% subsFormOptions.GUTTER_SERVICES.forEach(function(opt) { %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="Gutter Selected Service" value="<%= opt %>" id="addsub-GutterSelectedService-<%= opt.replace(/\s+/g, '') %>">
+                    <label class="form-check-label" for="addsub-GutterSelectedService-<%= opt.replace(/\s+/g, '') %>"><%= opt %></label>
+                  </div>
+                <% }) %>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label">Pref Service Date (GUTTER)</label>
+                <input type="date" class="form-control" name="Pref Service Date (GUTTER)">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Gutter notes</label>
+                <textarea class="form-control" name="Gutter notes" rows="2"></textarea>
+              </div>
+            </div>
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary btn-lg">Submit</button>
             </div>
