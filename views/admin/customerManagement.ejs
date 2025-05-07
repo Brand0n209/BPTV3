@@ -1,7 +1,7 @@
 <%- include('../partials/header', { title: 'Admin – Customer Management' }) %>
-<div class="flex min-h-screen w-full group">
+<div class="layout-grid">
   <%- include('../partials/sidebar', { user, activeTab: 'customerManagement' }) %>
-  <div class="flex-1 flex flex-col">
+  <div style="width:100%">
     <%- include('../partials/topbar', { user, currentTab: 'Customer Management' }) %>
     <div class="main-container">
       <div class="card flex flex-col items-center justify-center w-full max-w-xl text-center">

@@ -1,8 +1,9 @@
 <nav
   id="sidebar"
-  class="h-full bg-blue-50 border-r border-blue-200 flex flex-col py-4 space-y-2 w-full"
+  class="group fixed top-16 left-0 h-[calc(100%-4rem)] bg-blue-50 border-r border-blue-200
+         w-16 hover:w-56 transition-all duration-300 overflow-hidden z-50"
 >
-  <ul class="flex flex-col h-full w-full">
+  <ul class="flex flex-col py-4 space-y-2 h-full w-full">
     <% if (user && user.role === 'admin') { %>
       <li>
         <a href="/admin"
