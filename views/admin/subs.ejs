@@ -1,22 +1,20 @@
 <%- include('../partials/header', { title: 'Subs - Admin - Bright Prodigy' }) %>
 <div class="flex flex-row min-h-screen w-full">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
-  <div class="flex-1 flex flex-col ml-16 lg:ml-56" style="min-width:0;">
+  <div class="flex-1 flex flex-col ml-16 sidebar-expanded:ml-56" style="min-width:0;">
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
-    <!-- Sub-Tabs (under Topbar, to right of Sidebar) -->
-    <div class="bg-white border-b sticky top-12 z-10 px-4 py-2">
-      <div class="flex flex-wrap gap-2">
+    <div class="flex flex-row h-[calc(100vh-4rem)]">
+      <!-- Sub-Tabs Vertical Sidebar -->
+      <div class="flex flex-col w-56 bg-white border-r border-blue-200 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
         <% tabList.forEach(tab => { %>
           <a href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
-             class="text-sm font-medium px-4 py-1.5 rounded-full transition
-               <%= currentStage === tab ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700 hover:bg-blue-200' %>">
+             class="block px-4 py-2 rounded-md text-left text-blue-700 font-medium transition
+               <%= currentStage === tab ? 'bg-blue-500 text-white' : 'hover:bg-blue-100' %>">
             <%= tab %>
           </a>
         <% }) %>
       </div>
-    </div>
-    <div class="flex flex-row h-[calc(100vh-4rem)]">
       <!-- Main content: table to the right of sub-tabs, fills remaining space -->
       <div class="flex-1 min-w-0 flex flex-col">
         <h1 class="text-2xl font-bold mb-4 px-6 pt-6">Subs</h1>
