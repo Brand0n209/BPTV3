@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Open Add Sub Modal
   addSubBtn && addSubBtn.addEventListener('click', function () {
+    // Hide table/search area
+    const contentArea = document.querySelector('.content-area');
+    if (contentArea) contentArea.style.display = 'none';
     renderAddSubForm();
     addSubModal.classList.remove('hidden');
   });
@@ -25,12 +28,18 @@ document.addEventListener('DOMContentLoaded', function () {
   closeAddSubModal && closeAddSubModal.addEventListener('click', function () {
     addSubModal.classList.add('hidden');
     addSubModalContent.innerHTML = '';
+    // Restore table/search area
+    const contentArea = document.querySelector('.content-area');
+    if (contentArea) contentArea.style.display = '';
   });
 
   // Close Edit Sub Modal
   closeEditSubModal && closeEditSubModal.addEventListener('click', function () {
     editSubModal.classList.add('hidden');
     editSubModalContent.innerHTML = '';
+    // Restore table/search area
+    const contentArea = document.querySelector('.content-area');
+    if (contentArea) contentArea.style.display = '';
   });
 
   // Close modals on background click
@@ -48,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table rows clickable for editing
   document.querySelectorAll('.sub-row').forEach(row => {
     row.addEventListener('click', function () {
+      // Hide table/search area
+      const contentArea = document.querySelector('.content-area');
+      if (contentArea) contentArea.style.display = 'none';
       const table = row.closest('table');
       const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
       const values = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
@@ -206,6 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
             success && success.classList.add('hidden');
             form.reset();
             document.getElementById('addSubModal').classList.add('hidden');
+            // Restore table/search area
+            const contentArea = document.querySelector('.content-area');
+            if (contentArea) contentArea.style.display = '';
             window.location.reload();
           }, 1200);
         } else {
@@ -241,6 +256,9 @@ document.addEventListener('DOMContentLoaded', function () {
             success && success.classList.add('hidden');
             form.reset();
             document.getElementById('editSubModal').classList.add('hidden');
+            // Restore table/search area
+            const contentArea = document.querySelector('.content-area');
+            if (contentArea) contentArea.style.display = '';
             window.location.reload();
           }, 1200);
         } else {
@@ -274,6 +292,9 @@ document.addEventListener('DOMContentLoaded', function () {
           setTimeout(() => {
             success && success.classList.add('hidden');
             document.getElementById('editSubModal').classList.add('hidden');
+            // Restore table/search area
+            const contentArea = document.querySelector('.content-area');
+            if (contentArea) contentArea.style.display = '';
             window.location.reload();
           }, 1200);
         } else {
