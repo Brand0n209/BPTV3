@@ -1,24 +1,22 @@
 <%- include('../partials/header', { title: 'Subs - Admin - Bright Prodigy' }) %>
 <div class="flex flex-row min-h-screen w-full">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
-  <div class="flex-1 flex flex-col" style="min-width:0;">
+  <div class="flex-1 flex flex-col ml-16 lg:ml-56" style="min-width:0;">
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
+    <!-- Sub-Tabs (under Topbar, to right of Sidebar) -->
+    <div class="bg-white border-b sticky top-12 z-10 px-4 py-2">
+      <div class="flex flex-wrap gap-2">
+        <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
+        <% tabList.forEach(tab => { %>
+          <a href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
+             class="text-sm font-medium px-4 py-1.5 rounded-full transition
+               <%= currentStage === tab ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700 hover:bg-blue-200' %>">
+            <%= tab %>
+          </a>
+        <% }) %>
+      </div>
+    </div>
     <div class="flex flex-row h-[calc(100vh-4rem)]">
-      <!-- Sub-tabs navigation: vertical nav, styled like sidebar, to the right of sidebar -->
-      <nav class="subtabs-nav flex flex-col py-2 px-0 bg-blue-50 border-r border-blue-200 w-56 min-w-[12rem] max-w-xs h-full">
-        <% if (stages && stages.length) { %>
-          <% stages.forEach(stage => { %>
-            <a
-              href="/admin/subs?<%= stage === 'Not Contacted Yet' ? '' : 'stage=' + encodeURIComponent(stage) %>"
-              class="flex items-center space-x-2 px-6 py-2 text-blue-700 hover:bg-blue-100 transition-all duration-200 text-base font-medium
-                <%= currentStage === stage
-                  ? 'bg-blue-100 shadow-md border-l-4 border-blue-500'
-                  : '' %>">
-              <span><%= stage %></span>
-            </a>
-          <% }) %>
-        <% } %>
-      </nav>
       <!-- Main content: table to the right of sub-tabs, fills remaining space -->
       <div class="flex-1 min-w-0 flex flex-col">
         <h1 class="text-2xl font-bold mb-4 px-6 pt-6">Subs</h1>
