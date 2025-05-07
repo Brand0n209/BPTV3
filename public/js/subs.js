@@ -17,31 +17,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Open Add Sub Modal
   addSubBtn && addSubBtn.addEventListener('click', function () {
-    // Always hide the main content area (table/search)
+    // Always hide the main content area (table/search) using Tailwind classes
     const contentArea = document.querySelector('.content-area');
-    if (contentArea) contentArea.style.display = 'none';
+    if (contentArea) {
+      contentArea.classList.add('hidden');
+      contentArea.classList.remove('block');
+    }
     renderAddSubForm();
-    // Always show the modal
+    // Always show the modal using Tailwind classes
     addSubModal.classList.remove('hidden');
+    addSubModal.classList.add('block');
   });
 
   // Close Add Sub Modal
   closeAddSubModal && closeAddSubModal.addEventListener('click', function () {
     addSubModal.classList.add('hidden');
+    addSubModal.classList.remove('block');
     addSubModalContent.innerHTML = '';
-    // Restore table/search area
-    // Restore only the main content area (table/search)
+    // Restore table/search area using Tailwind classes
     const contentArea = document.querySelector('.content-area');
-    if (contentArea) contentArea.style.display = '';
+    if (contentArea) {
+      contentArea.classList.remove('hidden');
+      contentArea.classList.add('block');
+    }
   });
 
   // Close Edit Sub Modal
   closeEditSubModal && closeEditSubModal.addEventListener('click', function () {
     editSubModal.classList.add('hidden');
+    editSubModal.classList.remove('block');
     editSubModalContent.innerHTML = '';
-    // Restore table/search area
+    // Restore table/search area using Tailwind classes
     const contentArea = document.querySelector('.content-area');
-    if (contentArea) contentArea.style.display = '';
+    if (contentArea) {
+      contentArea.classList.remove('hidden');
+      contentArea.classList.add('block');
+    }
   });
 
   // Close modals on background click
@@ -50,7 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
       modal.addEventListener('click', function (e) {
         if (e.target === modal) {
           modal.classList.add('hidden');
+          modal.classList.remove('block');
           modal.querySelector('div.relative').innerHTML = '';
+          // Restore table/search area using Tailwind classes
+          const contentArea = document.querySelector('.content-area');
+          if (contentArea) {
+            contentArea.classList.remove('hidden');
+            contentArea.classList.add('block');
+          }
         }
       });
     }
@@ -59,9 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table rows clickable for editing
   document.querySelectorAll('.sub-row').forEach(row => {
     row.addEventListener('click', function () {
-      // Always hide the main content area (table/search)
+      // Always hide the main content area (table/search) using Tailwind classes
       const contentArea = document.querySelector('.content-area');
-      if (contentArea) contentArea.style.display = 'none';
+      if (contentArea) {
+        contentArea.classList.add('hidden');
+        contentArea.classList.remove('block');
+      }
       const table = row.closest('table');
       const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
       const values = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
@@ -69,8 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
       headers.forEach((h, i) => { rowData[h] = values[i]; });
       // Pass unique fields for backend matching
       renderEditSubForm(rowData);
-      // Always show the modal
+      // Always show the modal using Tailwind classes
       editSubModal.classList.remove('hidden');
+      editSubModal.classList.add('block');
     });
   });
 
