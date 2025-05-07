@@ -25,34 +25,43 @@
           <div class="mb-6">
             <h2 class="text-2xl font-bold text-blue-900">Add Sub</h2>
           </div>
-          <form id="addSubForm" autocomplete="off" class="relative bg-white p-6 rounded-lg shadow w-full space-y-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <form id="addSubForm" autocomplete="off" class="relative bg-white p-6 rounded-lg shadow w-full space-y-8 @container">
+  <div class="flex flex-wrap">
             <!-- Personal Info Section -->
             <div class="col-span-4 border border-blue-200 rounded-lg p-6 bg-blue-50">
               <h3 class="text-lg font-semibold text-blue-800 mb-4">Personal Information</h3>
-              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="md:col-span-1">
-                  <label for="firstName" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
-                  <input id="firstName" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="First Name" aria-describedby="firstName-error">
-                  <p id="firstName-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+              <div class="">
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="firstName" class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
+                    <input id="firstName" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="First Name" aria-describedby="firstName-error">
+                    <p id="firstName-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="prefServiceDateLighting" class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
-                  <input id="prefServiceDateLighting" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)" aria-describedby="prefServiceDateLighting-error">
-                  <p id="prefServiceDateLighting-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="prefServiceDateLighting" class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
+                    <input id="prefServiceDateLighting" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)" aria-describedby="prefServiceDateLighting-error">
+                    <p id="prefServiceDateLighting-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="measure" class="block text-sm font-medium text-gray-700">Measure</label>
-                  <select id="measure" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure" aria-describedby="measure-error">
-                    <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
-                      <option value="<%= opt %>"><%= opt %></option>
-                      <% }) %>
-                    </select>
-                    <p id="measure-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="measure" class="block text-sm font-medium text-gray-700">Measure</label>
+                    <select id="measure" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure" aria-describedby="measure-error">
+                      <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
+                        <option value="<%= opt %>"><%= opt %></option>
+                        <% }) %>
+                      </select>
+                      <p id="measure-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-4">
-                  <label for="lightingNotes" class="block text-sm font-medium text-gray-700">Lighting notes</label>
-                  <textarea id="lightingNotes" class="col-span-2 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4" aria-describedby="lightingNotes-error"></textarea>
-                  <p id="lightingNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-4">
+                    <label for="lightingNotes" class="block text-sm font-medium text-gray-700">Lighting notes</label>
+                    <textarea id="lightingNotes" class="col-span-2 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4" aria-describedby="lightingNotes-error"></textarea>
+                    <p id="lightingNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -60,193 +69,225 @@
             <!-- Address/Referral Section -->
             <div class="col-span-4 border border-blue-200 rounded-lg p-6 bg-blue-50">
               <h3 class="text-lg font-semibold text-blue-800 mb-4">Address & Referral</h3>
-              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="md:col-span-3">
-                  <label for="address" class="block text-sm font-medium text-gray-700">Address <span class="text-red-500">*</span></label>
-                  <input id="address" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Address" aria-describedby="address-error">
-                  <p id="address-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+              <div class="">
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-3">
+                    <label for="address" class="block text-sm font-medium text-gray-700">Address <span class="text-red-500">*</span></label>
+                    <input id="address" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Address" aria-describedby="address-error">
+                    <p id="address-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="city" class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
-                  <input id="city" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="City" aria-describedby="city-error">
-                  <p id="city-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="city" class="block text-sm font-medium text-gray-700">City <span class="text-red-500">*</span></label>
+                    <input id="city" type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="City" aria-describedby="city-error">
+                    <p id="city-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-2">
-                  <label for="homeStories" class="block text-sm font-medium text-gray-700">Home Stories <span class="text-red-500">*</span></label>
-                  <select id="homeStories" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Home Stories" aria-describedby="homeStories-error">
-                    <% subsFormOptions.HOME_STORIES.forEach(function(opt) { %>
-                      <option value="<%= opt %>"><%= opt %></option>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-2">
+                    <label for="homeStories" class="block text-sm font-medium text-gray-700">Home Stories <span class="text-red-500">*</span></label>
+                    <select id="homeStories" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Home Stories" aria-describedby="homeStories-error">
+                      <% subsFormOptions.HOME_STORIES.forEach(function(opt) { %>
+                        <option value="<%= opt %>"><%= opt %></option>
+                      <% }) %>
+                    </select>
+                    <p id="homeStories-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
+                </div>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-2">
+                    <label for="referral" class="block text-sm font-medium text-gray-700">Referral <span class="text-red-500">*</span></label>
+                    <select id="referral" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Referral" aria-describedby="referral-error">
+                      <option value="">Select a referral source</option>
+                      <% subsFormOptions.REFERRAL_SOURCES.forEach(function(opt) { %>
+                        <option value="<%= opt %>"><%= opt %></option>
                     <% }) %>
-                  </select>
-                  <p id="homeStories-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
-                </div>
-                <div class="md:col-span-2">
-                  <label for="referral" class="block text-sm font-medium text-gray-700">Referral <span class="text-red-500">*</span></label>
-                  <select id="referral" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Referral" aria-describedby="referral-error">
-                    <option value="">Select a referral source</option>
-                    <% subsFormOptions.REFERRAL_SOURCES.forEach(function(opt) { %>
-                      <option value="<%= opt %>"><%= opt %></option>
-                  <% }) %>
-                  </select>
-                  <p id="referral-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                    </select>
+                    <p id="referral-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Lighting Section -->
             <div class="col-span-4 border border-blue-200 rounded-lg p-6 bg-blue-50">
               <h3 class="text-lg font-semibold text-blue-800 mb-4">Lighting</h3>
-              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="md:col-span-1">
-                  <fieldset class="mb-4">
-                    <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Options</legend>
-                    <div class="grid grid-cols-2 gap-2">
-                      <% subsFormOptions.LIGHTING_OPTIONS.forEach(function(opt, idx) { 
-                        var id = `addsub-LightingOptions-${opt.replace(/\s+/g, '')}`;
-                      %>
-                        <div class="flex items-center">
-                          <input 
-                            class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            type="checkbox"
-                            name="Lighting Options"
-                            value="<%= opt %>"
-                            id="<%= id %>"
-                            aria-describedby="<%= id %>-error"
-                          >
-                          <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
-                        </div>
-                      <% }) %>
-                    </div>
-                    <p id="addsub-LightingOptions-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
-                  </fieldset>
+              <div class="">
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <fieldset class="mb-4">
+                      <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Options</legend>
+                      <div class="grid grid-cols-2 gap-2">
+                        <% subsFormOptions.LIGHTING_OPTIONS.forEach(function(opt, idx) { 
+                          var id = `addsub-LightingOptions-${opt.replace(/\s+/g, '')}`;
+                        %>
+                          <div class="flex items-center">
+                            <input 
+                              class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              type="checkbox"
+                              name="Lighting Options"
+                              value="<%= opt %>"
+                              id="<%= id %>"
+                              aria-describedby="<%= id %>-error"
+                            >
+                            <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                          </div>
+                        <% }) %>
+                      </div>
+                      <p id="addsub-LightingOptions-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                    </fieldset>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <fieldset class="mb-4">
-                    <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Sides</legend>
-                    <div class="grid grid-cols-2 gap-2">
-                      <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt, idx) { 
-                        var id = `addsub-LightingSides-${opt.replace(/\s+/g, '')}`;
-                      %>
-                        <div class="flex items-center">
-                          <input 
-                            class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            type="checkbox"
-                            name="Lighting Sides"
-                            value="<%= opt %>"
-                            id="<%= id %>"
-                            aria-describedby="<%= id %>-error"
-                          >
-                          <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
-                        </div>
-                      <% }) %>
-                    </div>
-                    <p id="addsub-LightingSides-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
-                  </fieldset>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <fieldset class="mb-4">
+                      <legend class="block text-sm font-medium text-gray-700 mb-1">Lighting Sides</legend>
+                      <div class="grid grid-cols-2 gap-2">
+                        <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt, idx) { 
+                          var id = `addsub-LightingSides-${opt.replace(/\s+/g, '')}`;
+                        %>
+                          <div class="flex items-center">
+                            <input 
+                              class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              type="checkbox"
+                              name="Lighting Sides"
+                              value="<%= opt %>"
+                              id="<%= id %>"
+                              aria-describedby="<%= id %>-error"
+                            >
+                            <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                          </div>
+                        <% }) %>
+                      </div>
+                      <p id="addsub-LightingSides-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                    </fieldset>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="prefServiceDateLighting" class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
-                  <input id="prefServiceDateLighting" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)" aria-describedby="prefServiceDateLighting-error">
-                  <p id="prefServiceDateLighting-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="prefServiceDateLighting" class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
+                    <input id="prefServiceDateLighting" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)" aria-describedby="prefServiceDateLighting-error">
+                    <p id="prefServiceDateLighting-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="measure" class="block text-sm font-medium text-gray-700">Measure</label>
-                  <select id="measure" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure" aria-describedby="measure-error">
-                    <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
-                      <option value="<%= opt %>"><%= opt %></option>
-                      <% }) %>
-                    </select>
-                    <p id="measure-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="measure" class="block text-sm font-medium text-gray-700">Measure</label>
+                    <select id="measure" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure" aria-describedby="measure-error">
+                      <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
+                        <option value="<%= opt %>"><%= opt %></option>
+                        <% }) %>
+                      </select>
+                      <p id="measure-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-4">
-                  <label for="lightingNotes" class="block text-sm font-medium text-gray-700">Lighting notes</label>
-                  <textarea id="lightingNotes" class="col-span-2 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4" aria-describedby="lightingNotes-error"></textarea>
-                  <p id="lightingNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-4">
+                    <label for="lightingNotes" class="block text-sm font-medium text-gray-700">Lighting notes</label>
+                    <textarea id="lightingNotes" class="col-span-2 mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4" aria-describedby="lightingNotes-error"></textarea>
+                    <p id="lightingNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Solar Section -->
             <div class="border border-blue-200 rounded-lg p-6 bg-blue-50">
               <h3 class="text-lg font-semibold text-blue-800 mb-4">Solar</h3>
-              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="md:col-span-2">
-                  <fieldset class="mb-4">
-                    <legend class="block text-sm font-medium text-gray-700 mb-1">Solar Selected Services</legend>
-                    <div class="grid grid-cols-2 gap-2">
-                      <% subsFormOptions.SOLAR_SERVICES.forEach(function(opt, idx) { 
-                        var id = `addsub-SolarSelectedServices-${opt.replace(/\s+/g, '')}`;
-                      %>
-                        <div class="flex items-center">
-                          <input 
-                            class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            type="checkbox"
-                            name="Solar Selected Services"
-                            value="<%= opt %>"
-                            id="<%= id %>"
-                            aria-describedby="<%= id %>-error"
-                          >
-                          <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
-                        </div>
-                      <% }) %>
-                    </div>
-                    <p id="addsub-SolarSelectedServices-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
-                  </fieldset>
+              <div class="">
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-2">
+                    <fieldset class="mb-4">
+                      <legend class="block text-sm font-medium text-gray-700 mb-1">Solar Selected Services</legend>
+                      <div class="grid grid-cols-2 gap-2">
+                        <% subsFormOptions.SOLAR_SERVICES.forEach(function(opt, idx) { 
+                          var id = `addsub-SolarSelectedServices-${opt.replace(/\s+/g, '')}`;
+                        %>
+                          <div class="flex items-center">
+                            <input 
+                              class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              type="checkbox"
+                              name="Solar Selected Services"
+                              value="<%= opt %>"
+                              id="<%= id %>"
+                              aria-describedby="<%= id %>-error"
+                            >
+                            <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                          </div>
+                        <% }) %>
+                      </div>
+                      <p id="addsub-SolarSelectedServices-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                    </fieldset>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="prefServiceDateSolar" class="block text-sm font-medium text-gray-700">Pref Service Date (SOLAR)</label>
-                  <input id="prefServiceDateSolar" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (SOLAR)" aria-describedby="prefServiceDateSolar-error">
-                  <p id="prefServiceDateSolar-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="prefServiceDateSolar" class="block text-sm font-medium text-gray-700">Pref Service Date (SOLAR)</label>
+                    <input id="prefServiceDateSolar" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (SOLAR)" aria-describedby="prefServiceDateSolar-error">
+                    <p id="prefServiceDateSolar-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-1">
-                  <label for="solarPanels" class="block text-sm font-medium text-gray-700">Solar Panels</label>
-                  <input id="solarPanels" type="number" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar Panels" aria-describedby="solarPanels-error">
-                  <p id="solarPanels-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-1">
+                    <label for="solarPanels" class="block text-sm font-medium text-gray-700">Solar Panels</label>
+                    <input id="solarPanels" type="number" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar Panels" aria-describedby="solarPanels-error">
+                    <p id="solarPanels-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div class="md:col-span-4">
-                  <label for="solarNotes" class="block text-sm font-medium text-gray-700">Solar notes</label>
-                  <textarea id="solarNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar notes" rows="2" aria-describedby="solarNotes-error"></textarea>
-                  <p id="solarNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-4">
+                    <label for="solarNotes" class="block text-sm font-medium text-gray-700">Solar notes</label>
+                    <textarea id="solarNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Solar notes" rows="2" aria-describedby="solarNotes-error"></textarea>
+                    <p id="solarNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Gutter Section -->
             <div class="border border-blue-200 rounded-lg p-6 bg-blue-50">
               <h3 class="text-lg font-semibold text-blue-800 mb-4">Gutter</h3>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                  <fieldset class="mb-4">
-                    <legend class="block text-sm font-medium text-gray-700 mb-1">Gutter Selected Service</legend>
-                    <div class="grid grid-cols-2 gap-2">
-                      <% subsFormOptions.GUTTER_SERVICES.forEach(function(opt, idx) { 
-                        var id = `addsub-GutterSelectedService-${opt.replace(/\s+/g, '')}`;
-                      %>
-                        <div class="flex items-center">
-                          <input 
-                            class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                            type="checkbox"
-                            name="Gutter Selected Service"
-                            value="<%= opt %>"
-                            id="<%= id %>"
-                            aria-describedby="<%= id %>-error"
-                          >
-                          <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
-                        </div>
-                      <% }) %>
-                    </div>
-                    <p id="addsub-GutterSelectedService-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
-                  </fieldset>
+              <div class="">
+                <div class="w-1/4 p-2">
+                  <div class="md:col-span-2">
+                    <fieldset class="mb-4">
+                      <legend class="block text-sm font-medium text-gray-700 mb-1">Gutter Selected Service</legend>
+                      <div class="grid grid-cols-2 gap-2">
+                        <% subsFormOptions.GUTTER_SERVICES.forEach(function(opt, idx) { 
+                          var id = `addsub-GutterSelectedService-${opt.replace(/\s+/g, '')}`;
+                        %>
+                          <div class="flex items-center">
+                            <input 
+                              class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              type="checkbox"
+                              name="Gutter Selected Service"
+                              value="<%= opt %>"
+                              id="<%= id %>"
+                              aria-describedby="<%= id %>-error"
+                            >
+                            <label for="<%= id %>" class="text-sm text-gray-700"><%= opt %></label>
+                          </div>
+                        <% }) %>
+                      </div>
+                      <p id="addsub-GutterSelectedService-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                    </fieldset>
+                  </div>
                 </div>
-                <div>
-                  <label for="prefServiceDateGutter" class="block text-sm font-medium text-gray-700">Pref Service Date (GUTTER)</label>
-                  <input id="prefServiceDateGutter" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (GUTTER)" aria-describedby="prefServiceDateGutter-error">
-                  <p id="prefServiceDateGutter-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div>
+                    <label for="prefServiceDateGutter" class="block text-sm font-medium text-gray-700">Pref Service Date (GUTTER)</label>
+                    <input id="prefServiceDateGutter" type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (GUTTER)" aria-describedby="prefServiceDateGutter-error">
+                    <p id="prefServiceDateGutter-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
-                <div>
-                  <label for="gutterNotes" class="block text-sm font-medium text-gray-700">Gutter notes</label>
-                  <textarea id="gutterNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Gutter notes" rows="2" aria-describedby="gutterNotes-error"></textarea>
-                  <p id="gutterNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                <div class="w-1/4 p-2">
+                  <div>
+                    <label for="gutterNotes" class="block text-sm font-medium text-gray-700">Gutter notes</label>
+                    <textarea id="gutterNotes" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Gutter notes" rows="2" aria-describedby="gutterNotes-error"></textarea>
+                    <p id="gutterNotes-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="flex justify-end mt-6">
+            <div class="w-full flex justify-end mt-6">
               <button type="submit" class="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded shadow hover:bg-blue-700 transition">Submit</button>
             </div>
             <div id="addSubLoadingOverlay" class="hidden absolute top-0 left-0 w-full h-full bg-gray-100 bg-opacity-70 z-10 flex items-center justify-center">
