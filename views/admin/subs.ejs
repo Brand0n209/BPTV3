@@ -8,7 +8,7 @@
       <nav class="flex justify-center w-full space-x-2 border-b border-blue-200 mb-6 overflow-x-auto pt-6" aria-label="Sub stages">
         <% tabList.forEach(tab => { %>
           <a
-            href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
+            href="/admin/subs?<%= 'stage=' + encodeURIComponent(tab) %>"
             class="px-3 py-1.5 text-xs font-medium rounded-t-md transition
               <%= currentStage === tab
                 ? 'bg-white border-l border-t border-r border-blue-500 text-blue-800 shadow ring-2 ring-blue-500 font-bold'
