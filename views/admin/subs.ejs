@@ -24,7 +24,10 @@
           <% 
             let displayRows = rows;
             if (currentStage === 'All Subs' && Array.isArray(rows)) {
-              displayRows = rows.filter(row => row.Subdate && row.Subdate.trim() !== '');
+              displayRows = rows.filter(row => {
+                const subdate = row.Subdate || row.SubDate || row.subdate;
+                return subdate !== undefined && subdate !== null && String(subdate).trim() !== '';
+              });
             }
             const hasRows = displayRows && displayRows.length > 0; 
           %>
