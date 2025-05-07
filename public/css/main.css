@@ -239,8 +239,14 @@ footer {
 
 /* Subs page vertical sub-tabs nav, styled like sidebar */
 
+.main-content {
+  margin-left: 4rem; /* 16 (collapsed width) */
+  width: calc(100% - 4rem);
+  transition: margin-left 0.3s, width 0.3s;
+}
 /* Sidebar hover expands main content margin */
 #sidebar:hover ~ .main-content {
   margin-left: 14rem; /* 56 (expanded width) */
-  transition: margin-left 0.3s;
+  width: calc(100% - 14rem);
+  transition: margin-left 0.3s, width 0.3s;
 }
