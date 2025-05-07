@@ -1,11 +1,28 @@
 <%- include('../partials/header', { title: 'Admin – Doc Hub' }) %>
-<div class="layout-grid">
+<div class="layout-grid min-h-screen h-screen">
   <%- include('../partials/sidebar', { user, activeTab: 'docHub' }) %>
-  <div style="width:100%">
+  <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
     <%- include('../partials/topbar', { user, currentTab: 'Doc Hub' }) %>
-    <div class="main-container">
-      <div class="card flex flex-col items-center justify-center w-full max-w-xl text-center">
-        <h1 class="text-2xl font-semibold mb-2">Admin – Doc Hub</h1>
+    <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
+      <h2 class="text-xl font-semibold mb-4">Doc Hub</h2>
+      <div class="content-area flex-1 flex flex-col overflow-hidden">
+        <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
+          <h3 class="text-lg font-semibold mb-3">[Documents Table Placeholder]</h3>
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th class="px-4 py-2 text-left">Document Name</th>
+                <th class="px-4 py-2 text-left">Type</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="px-4 py-2 text-gray-500" colspan="3">[Table of documents will appear here]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <%- include('../partials/footer') %>

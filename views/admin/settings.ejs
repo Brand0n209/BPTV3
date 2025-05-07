@@ -1,11 +1,15 @@
 <%- include('../partials/header', { title: 'Admin – Settings' }) %>
-<div class="layout-grid">
+<div class="layout-grid min-h-screen h-screen">
   <%- include('../partials/sidebar', { user, activeTab: 'settings' }) %>
-  <div style="width:100%">
+  <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
     <%- include('../partials/topbar', { user, currentTab: 'Settings' }) %>
-    <div class="main-container">
-      <div class="card flex flex-col items-center justify-center w-full max-w-xl text-center">
-        <h1 class="text-2xl font-semibold mb-2">Admin – Settings</h1>
+    <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
+      <h2 class="text-xl font-semibold mb-4">Settings</h2>
+      <div class="content-area flex-1 flex flex-col overflow-hidden">
+        <div class="w-full border rounded bg-gray-50 p-4">
+          <h3 class="text-lg font-semibold mb-3">[Settings Placeholder]</h3>
+          <div class="text-gray-500 text-center py-8">[Settings form or options will appear here]</div>
+        </div>
       </div>
     </div>
     <%- include('../partials/footer') %>

@@ -1,12 +1,81 @@
 <%- include('../partials/header', { title: 'Admin – Customer Management' }) %>
-<div class="layout-grid">
+<div class="layout-grid min-h-screen h-screen">
   <%- include('../partials/sidebar', { user, activeTab: 'customerManagement' }) %>
-  <div style="width:100%">
+  <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
     <%- include('../partials/topbar', { user, currentTab: 'Customer Management' }) %>
-    <div class="main-container">
-      <div class="card flex flex-col items-center justify-center w-full max-w-xl text-center">
-        <h1 class="text-2xl font-semibold mb-2">Admin – Customer Management</h1>
+    <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
+      <h2 class="text-xl font-semibold mb-4">Customer Management</h2>
+      <!-- Sub-tabs -->
+      <div class="sub-tabs mb-4 flex flex-row gap-2 border-b border-blue-200">
+        <button class="subtab-btn px-4 py-2 rounded-t-md border border-b-0 font-medium transition
+          bg-white text-blue-700 border-blue-400 active"
+          id="addsub-tab" data-tab="addsub" type="button" aria-selected="true">
+          Add Sub
+        </button>
+        <button class="subtab-btn px-4 py-2 rounded-t-md border border-b-0 font-medium transition
+          bg-blue-50 text-blue-600 border-blue-200"
+          id="all-tab" data-tab="all" type="button" aria-selected="false">
+          All
+        </button>
       </div>
+      <!-- Content area -->
+      <div class="content-area flex-1 flex flex-col overflow-hidden">
+        <div id="addsub-content" class="tab-pane active flex-1" role="tabpanel">
+          <form class="w-full max-w-lg border p-4 rounded bg-gray-50 mx-auto">
+            <h3 class="text-lg font-semibold mb-3">Add New Customer</h3>
+            <div class="mb-3">
+              <label for="customerName" class="block mb-1 font-medium">Customer Name</label>
+              <input type="text" class="w-full border rounded px-3 py-2" id="customerName" placeholder="Enter name" disabled>
+            </div>
+            <div class="mb-3">
+              <label for="customerEmail" class="block mb-1 font-medium">Email</label>
+              <input type="email" class="w-full border rounded px-3 py-2" id="customerEmail" placeholder="Enter email" disabled>
+            </div>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded" disabled>Submit</button>
+          </form>
+        </div>
+        <div id="all-content" class="tab-pane flex-1" style="display:none;" role="tabpanel">
+          <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
+            <h3 class="text-lg font-semibold mb-3">All Customers</h3>
+            <table class="min-w-full">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2 text-left">Name</th>
+                  <th class="px-4 py-2 text-left">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-4 py-2 text-gray-500" colspan="2">[Table of all customers will appear here]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <script>
+        // Simple tab switching logic
+        document.addEventListener('DOMContentLoaded', function () {
+          const tabs = document.querySelectorAll('.subtab-btn');
+          const addSubContent = document.getElementById('addsub-content');
+          const allContent = document.getElementById('all-content');
+          tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+              tabs.forEach(t => t.classList.remove('active', 'bg-white', 'text-blue-700', 'border-blue-400'));
+              tabs.forEach(t => t.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200'));
+              this.classList.add('active', 'bg-white', 'text-blue-700', 'border-blue-400');
+              this.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
+              if (this.dataset.tab === 'addsub') {
+                addSubContent.style.display = '';
+                allContent.style.display = 'none';
+              } else {
+                addSubContent.style.display = 'none';
+                allContent.style.display = '';
+              }
+            });
+          });
+        });
+      </script>
     </div>
     <%- include('../partials/footer') %>
   </div>
