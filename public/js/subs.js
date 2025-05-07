@@ -18,8 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Open Add Sub Modal
   addSubBtn && addSubBtn.addEventListener('click', function () {
     // Hide table/search area
+    // Hide only the main content area (table/search)
     const contentArea = document.querySelector('.content-area');
-    if (contentArea) contentArea.style.display = 'none';
+    if (contentArea && !addSubModal.classList.contains('hidden') && !editSubModal.classList.contains('hidden')) {
+      contentArea.style.display = 'none';
+    } else if (contentArea) {
+      contentArea.style.display = 'none';
+    }
     renderAddSubForm();
     addSubModal.classList.remove('hidden');
   });
@@ -29,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addSubModal.classList.add('hidden');
     addSubModalContent.innerHTML = '';
     // Restore table/search area
+    // Restore only the main content area (table/search)
     const contentArea = document.querySelector('.content-area');
     if (contentArea) contentArea.style.display = '';
   });
