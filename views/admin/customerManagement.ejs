@@ -4,57 +4,90 @@
   <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
     <%- include('../partials/topbar', { user, currentTab: 'Customer Management' }) %>
     <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
-      <h2 class="text-xl font-semibold mb-4">Customer Management</h2>
-      <!-- Sub-tabs -->
-      <div class="sub-tabs mb-4 flex flex-row gap-2 border-b border-blue-200">
-        <button class="subtab-btn px-4 py-2 rounded-t-md border border-b-0 font-medium transition
-          bg-white text-blue-700 border-blue-400 active"
-          id="addsub-tab" data-tab="addsub" type="button" aria-selected="true">
+      <h2 style="font-size: 1.5rem; font-weight: 500; color: #1976d2; margin-bottom: 16px;">Customer Management</h2>
+      <!-- Sub-tabs with Material UI style -->
+      <div style="display: flex; gap: 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+        <button 
+          class="subtab-btn active" 
+          id="addsub-tab" 
+          data-tab="addsub" 
+          type="button" 
+          aria-selected="true"
+          style="padding: 10px 16px; border: none; background: transparent; position: relative; font-size: 0.875rem; font-weight: 500; color: #1976d2; cursor: pointer; text-transform: uppercase; letter-spacing: 0.02857em; transition: color 0.3s; outline: none;"
+        >
           Add Sub
+          <span style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background-color: #1976d2;"></span>
         </button>
-        <button class="subtab-btn px-4 py-2 rounded-t-md border border-b-0 font-medium transition
-          bg-blue-50 text-blue-600 border-blue-200"
-          id="all-tab" data-tab="all" type="button" aria-selected="false">
+        <button 
+          class="subtab-btn" 
+          id="all-tab" 
+          data-tab="all" 
+          type="button" 
+          aria-selected="false"
+          style="padding: 10px 16px; border: none; background: transparent; position: relative; font-size: 0.875rem; font-weight: 500; color: rgba(0, 0, 0, 0.6); cursor: pointer; text-transform: uppercase; letter-spacing: 0.02857em; transition: color 0.3s; outline: none;"
+        >
           All
         </button>
       </div>
       <!-- Content area -->
       <div class="content-area flex-1 flex flex-col overflow-hidden">
         <div id="addsub-content" class="tab-pane active flex-1" role="tabpanel">
-          <form class="w-full max-w-lg border p-4 rounded bg-gray-50 mx-auto @container">
-            <h3 class="text-lg font-semibold mb-3">Add New Customer</h3>
-            <div class="flex flex-wrap">
-              <div class="w-1/4 p-2">
-                <div class="mb-3">
-                  <label for="customerName" class="block mb-1 font-medium">Customer Name</label>
-                  <input type="text" class="w-full border rounded px-3 py-2" id="customerName" placeholder="Enter name" disabled>
-                </div>
+          <form style="width: 100%; max-width: 800px; padding: 24px; background-color: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); margin: 0 auto;">
+            <h3 style="font-size: 1.25rem; font-weight: 500; color: #1976d2; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e0e0e0;">
+              Add New Customer
+            </h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+              <div style="flex: 1; min-width: 200px;">
+                <label for="customerName" style="display: block; font-size: 0.875rem; margin-bottom: 8px; color: rgba(0, 0, 0, 0.6);">
+                  Customer Name
+                </label>
+                <input 
+                  type="text" 
+                  id="customerName" 
+                  placeholder="Enter name" 
+                  disabled
+                  style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;"
+                >
               </div>
-              <div class="w-1/4 p-2">
-                <div class="mb-3">
-                  <label for="customerEmail" class="block mb-1 font-medium">Email</label>
-                  <input type="email" class="w-full border rounded px-3 py-2" id="customerEmail" placeholder="Enter email" disabled>
-                </div>
+              <div style="flex: 1; min-width: 200px;">
+                <label for="customerEmail" style="display: block; font-size: 0.875rem; margin-bottom: 8px; color: rgba(0, 0, 0, 0.6);">
+                  Email
+                </label>
+                <input 
+                  type="email" 
+                  id="customerEmail" 
+                  placeholder="Enter email" 
+                  disabled
+                  style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;"
+                >
               </div>
-              <div class="w-1/4 p-2">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded" disabled>Submit</button>
+              <div style="align-self: flex-end; margin-top: 8px;">
+                <button 
+                  type="submit" 
+                  disabled
+                  style="background-color: #1976d2; color: white; padding: 8px 16px; border-radius: 4px; font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.02857em; border: none; cursor: default; opacity: 0.6;"
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </form>
         </div>
         <div id="all-content" class="tab-pane flex-1" style="display:none;" role="tabpanel">
-          <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
-            <h3 class="text-lg font-semibold mb-3">All Customers</h3>
-            <table class="min-w-full">
+          <div style="width: 100%; max-width: 800px; background-color: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); margin: 0 auto; overflow-x: auto;">
+            <div style="padding: 16px 24px;">
+              <h3 style="font-size: 1.25rem; font-weight: 500; color: #1976d2; margin-bottom: 16px;">All Customers</h3>
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
               <thead>
-                <tr>
-                  <th class="px-4 py-2 text-left">Name</th>
-                  <th class="px-4 py-2 text-left">Email</th>
+                <tr style="background-color: #f5f5f5; border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                  <th style="padding: 16px 24px; text-align: left; font-weight: 500; color: rgba(0, 0, 0, 0.87); font-size: 0.875rem;">Name</th>
+                  <th style="padding: 16px 24px; text-align: left; font-weight: 500; color: rgba(0, 0, 0, 0.87); font-size: 0.875rem;">Email</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="px-4 py-2 text-gray-500" colspan="2">[Table of all customers will appear here]</td>
+                <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.08);">
+                  <td style="padding: 16px 24px; color: rgba(0, 0, 0, 0.54); font-size: 0.875rem;" colspan="2">[Table of all customers will appear here]</td>
                 </tr>
               </tbody>
             </table>
@@ -62,17 +95,41 @@
         </div>
       </div>
       <script>
-        // Simple tab switching logic
+        // Material UI inspired tab switching logic
         document.addEventListener('DOMContentLoaded', function () {
           const tabs = document.querySelectorAll('.subtab-btn');
           const addSubContent = document.getElementById('addsub-content');
           const allContent = document.getElementById('all-content');
+          
           tabs.forEach(tab => {
             tab.addEventListener('click', function () {
-              tabs.forEach(t => t.classList.remove('active', 'bg-white', 'text-blue-700', 'border-blue-400'));
-              tabs.forEach(t => t.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-200'));
-              this.classList.add('active', 'bg-white', 'text-blue-700', 'border-blue-400');
-              this.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-200');
+              // Update tab styles
+              tabs.forEach(t => {
+                t.classList.remove('active');
+                t.style.color = 'rgba(0, 0, 0, 0.6)';
+                
+                // Remove indicator if exists
+                const indicator = t.querySelector('span');
+                if (indicator) {
+                  indicator.remove();
+                }
+              });
+              
+              // Activate current tab
+              this.classList.add('active');
+              this.style.color = '#1976d2';
+              
+              // Add indicator to current tab
+              const indicator = document.createElement('span');
+              indicator.style.position = 'absolute';
+              indicator.style.bottom = '0';
+              indicator.style.left = '0';
+              indicator.style.right = '0';
+              indicator.style.height = '2px';
+              indicator.style.backgroundColor = '#1976d2';
+              this.appendChild(indicator);
+              
+              // Show/hide content
               if (this.dataset.tab === 'addsub') {
                 addSubContent.style.display = '';
                 allContent.style.display = 'none';
