@@ -23,12 +23,6 @@
         <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
           <% 
             let displayRows = rows;
-            if (currentStage === 'All Subs' && Array.isArray(rows)) {
-              displayRows = rows.filter(row => {
-                const subdate = row.Subdate || row.SubDate || row.subdate;
-                return subdate !== undefined && subdate !== null && String(subdate).trim() !== '';
-              });
-            }
             const hasRows = displayRows && displayRows.length > 0; 
           %>
           <table class="table-auto divide-y divide-gray-200 min-w-full">
