@@ -11,7 +11,10 @@
         </div>
       <% }) %>
     </fieldset>
-<% } %>
+<% }
+  // Pre-merge lighting options
+  const lightingOptions = subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT);
+%>
 <div class="layout-grid min-h-screen h-screen">
   <%- include('../partials/sidebar', { user: typeof user !== 'undefined' ? user : null, activeTab: 'subs' }) %>
   <div class="main-content flex-1 flex flex-col min-h-screen h-screen" style="min-width:0;">
@@ -85,23 +88,11 @@
             <div class="grid grid-cols-6 gap-4 mb-4">
               <!-- Lighting Options (col-span-2) -->
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Lighting Options</label>
-                <% subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT).forEach(function(opt) { %>
-                  <div class="flex items-center mt-1">
-                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Options" value="<%= opt %>" id="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>">
-                    <label for="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                  </div>
-                <% }) %>
+                <%= renderCheckboxGroup('Lighting Options', lightingOptions) %>
               </div>
               <!-- Lighting Sides (col-span-2) -->
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Lighting Sides</label>
-                <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt) { %>
-                  <div class="flex items-center mt-1">
-                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Sides" value="<%= opt %>" id="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>">
-                    <label for="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                  </div>
-                <% }) %>
+                <%= renderCheckboxGroup('Lighting Sides', subsFormOptions.LIGHTING_SIDES) %>
               </div>
               <!-- Pref Service Date (LIGHTING) and Measure (stacked), Lighting notes (row-span-2) -->
               <div class="md:col-span-2 grid grid-rows-3 gap-2 h-full">
@@ -126,13 +117,7 @@
             <!-- Row 4: Solar Block -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div>
-                <label class="block text-sm font-medium text-gray-700">Solar Selected Services</label>
-                <% subsFormOptions.SOLAR_SERVICES.forEach(function(opt) { %>
-                  <div class="flex items-center mt-1">
-                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Solar Selected Services" value="<%= opt %>" id="addsub-SolarSelectedServices-<%= opt.replace(/\s+/g, '') %>">
-                    <label for="addsub-SolarSelectedServices-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                  </div>
-                <% }) %>
+                <%= renderCheckboxGroup('Solar Selected Services', subsFormOptions.SOLAR_SERVICES) %>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700">Pref Service Date (SOLAR)</label>
@@ -150,13 +135,7 @@
             <!-- Row 5: Gutter Block -->
             <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
               <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Gutter Selected Service</label>
-                <% subsFormOptions.GUTTER_SERVICES.forEach(function(opt) { %>
-                  <div class="flex items-center mt-1">
-                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Gutter Selected Service" value="<%= opt %>" id="addsub-GutterSelectedService-<%= opt.replace(/\s+/g, '') %>">
-                    <label for="addsub-GutterSelectedService-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                  </div>
-                <% }) %>
+                <%= renderCheckboxGroup('Gutter Selected Service', subsFormOptions.GUTTER_SERVICES) %>
               </div>
               <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700">Pref Service Date (GUTTER)</label>
