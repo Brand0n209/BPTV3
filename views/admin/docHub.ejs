@@ -6,23 +6,93 @@
     <div class="tab-content w-full max-w-full px-4 flex-1 flex flex-col overflow-hidden">
       <h2 class="text-xl font-semibold mb-4">Doc Hub</h2>
       <div class="content-area flex-1 flex flex-col overflow-hidden">
-        <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
-          <h3 class="text-lg font-semibold mb-3">[Documents Table Placeholder]</h3>
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="px-4 py-2 text-left">Document Name</th>
-                <th class="px-4 py-2 text-left">Type</th>
-                <th class="px-4 py-2 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="px-4 py-2 text-gray-500" colspan="3">[Table of documents will appear here]</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <% if (isAdmin) { %>
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Assigned Folders/Files</h3>
+            <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
+              <table class="min-w-full">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-2 text-left">Name</th>
+                    <th class="px-4 py-2 text-left">Type</th>
+                    <th class="px-4 py-2 text-left">Assigned Roles</th>
+                    <th class="px-4 py-2 text-left">Assigned Users</th>
+                    <th class="px-4 py-2 text-left">Tab</th>
+                    <th class="px-4 py-2 text-left">Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (assignments && assignments.length) { %>
+                    <% assignments.forEach(function(item) { %>
+                      <tr>
+                        <td class="px-4 py-2"><%= item.driveMeta && item.driveMeta.name ? item.driveMeta.name : (item.Name || '[No Name]') %></td>
+                        <td class="px-4 py-2"><%= item.driveMeta && item.driveMeta.mimeType ? item.driveMeta.mimeType : '[Unknown]' %></td>
+                        <td class="px-4 py-2"><%= item['Assigned Roles'] %></td>
+                        <td class="px-4 py-2"><%= item['Assigned Users'] %></td>
+                        <td class="px-4 py-2"><%= item['Tab Name'] %></td>
+                        <td class="px-4 py-2">
+                          <% if (item.driveMeta && item.driveMeta.webViewLink) { %>
+                            <a href="<%= item.driveMeta.webViewLink %>" target="_blank" class="text-blue-600 underline">Open</a>
+                          <% } else { %>
+                            <span class="text-gray-400">Unavailable</span>
+                          <% } %>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="6" class="px-4 py-2 text-gray-500">No assignments found.</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-8">
+              <h4 class="text-md font-semibold mb-2">Assign Folder/File to Role or User</h4>
+              <div class="p-4 border rounded bg-blue-50 text-blue-900">
+                <em>[Assignment UI coming soon: Admins will be able to browse Google Drive, select a folder/file, and assign it to roles/users here.]</em>
+              </div>
+            </div>
+          </div>
+        <% } else { %>
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Your Assigned Folders/Files</h3>
+            <div class="table-container overflow-x-auto w-full border rounded bg-gray-50 p-4">
+              <table class="min-w-full">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-2 text-left">Name</th>
+                    <th class="px-4 py-2 text-left">Type</th>
+                    <th class="px-4 py-2 text-left">Tab</th>
+                    <th class="px-4 py-2 text-left">Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (assignments && assignments.length) { %>
+                    <% assignments.forEach(function(item) { %>
+                      <tr>
+                        <td class="px-4 py-2"><%= item.driveMeta && item.driveMeta.name ? item.driveMeta.name : (item.Name || '[No Name]') %></td>
+                        <td class="px-4 py-2"><%= item.driveMeta && item.driveMeta.mimeType ? item.driveMeta.mimeType : '[Unknown]' %></td>
+                        <td class="px-4 py-2"><%= item['Tab Name'] %></td>
+                        <td class="px-4 py-2">
+                          <% if (item.driveMeta && item.driveMeta.webViewLink) { %>
+                            <a href="<%= item.driveMeta.webViewLink %>" target="_blank" class="text-blue-600 underline">Open</a>
+                          <% } else { %>
+                            <span class="text-gray-400">Unavailable</span>
+                          <% } %>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="4" class="px-4 py-2 text-gray-500">No assigned folders/files found.</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% } %>
       </div>
     </div>
     <%- include('../partials/footer') %>

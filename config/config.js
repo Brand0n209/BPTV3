@@ -102,6 +102,14 @@ const SUBS_FORM_OPTIONS = {
 
 /**
  * =====================
+ * Doc Hub Assignments Sheet
+ * =====================
+ */
+const DOC_HUB_ASSIGNMENTS_SHEET_ID = process.env.DOC_HUB_ASSIGNMENTS_SHEET_ID || 'YOUR_DOC_HUB_ASSIGNMENTS_SHEET_ID';
+const DOC_HUB_ASSIGNMENTS_SHEET_NAME = process.env.DOC_HUB_ASSIGNMENTS_SHEET_NAME || 'Assignments';
+
+/**
+ * =====================
  * External Sheets
  * =====================
  */
@@ -134,6 +142,10 @@ module.exports = {
 
   // Subs Form Options
   SUBS_FORM_OPTIONS,
+
+  // Doc Hub Assignments Sheet
+  DOC_HUB_ASSIGNMENTS_SHEET_ID,
+  DOC_HUB_ASSIGNMENTS_SHEET_NAME,
 
   // External Sheets
   EXTERNAL_SHEETS,

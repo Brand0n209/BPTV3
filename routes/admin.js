@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const { ensureLogin, ensureRole } = require('../lib/sessionHelpers');
 const adminController = require('../controllers/adminController');
+const docHubController = require('../controllers/docHubController');
 
 // All admin routes require login and admin role
 router.use(ensureLogin, ensureRole('admin'));
@@ -36,9 +37,9 @@ router.get('/staff-management', adminController.staffManagement);
 router.get('/referrals', adminController.referrals);
 
 /**
- * TODO: Admin Doc Hub tab route
+ * Admin Doc Hub tab route (Google Drive integration)
  */
-router.get('/doc-hub', adminController.docHub);
+router.get('/doc-hub', docHubController.docHubView);
 
 /**
  * TODO: Admin Settings tab route
