@@ -4,8 +4,8 @@
   <div class="main-content flex-1 flex flex-col ml-16" style="min-width:0;">
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     <div class="flex flex-row h-[calc(100vh-4rem)]">
-      <!-- Sub-Tabs Column -->
-      <div class="w-56 ml-16 bg-white border-r border-blue-200 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
+      <!-- Sub-Tabs Vertical Sidebar -->
+      <nav aria-label="Sub stages" class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
         <ul>
           <% tabList.forEach(tab => { %>
@@ -20,7 +20,7 @@
             </li>
           <% }) %>
         </ul>
-      </div>
+      </nav>
       <!-- Main content: table to the right of sub-tabs, fills remaining space -->
       <div class="flex-1 min-w-0 flex flex-col">
         <h1 class="text-2xl font-bold mb-4 px-6 pt-6">Subs</h1>
