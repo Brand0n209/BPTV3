@@ -127,6 +127,44 @@ exports.subsView = async (req, res) => {
   }
 };
 
+/**
+ * Add Sub (AJAX POST)
+ * Adds a new sub to the submissions sheet.
+ */
+const { appendRowByHeaders } = require('../lib/googleSheets');
+
+exports.addSub = async (req, res) => {
+  try {
+    const SUBS_HEADERS = [
+      "First Name", "Last Name", "Phone Number", "Email", "Referral", "Address", "City", "Home Stories",
+      "Lighting Options", "Lighting Sides", "Pref Service Date (LIGHTING)", "Measure", "Lighting notes",
+      "Solar Selected Services", "Pref Service Date (SOLAR)", "Solar Panels", "Solar notes",
+      "Gutter Selected Service", "Pref Service Date (GUTTER)", "Gutter notes"
+    ];
+    const data = req.body || {};
+    // Basic validation
+    const required = ["First Name", "Last Name", "Phone Number", "Referral", "Address", "City", "Home Stories"];
+    for (const field of required) {
+      if (!data[field] || typeof data[field] !== "string" || !data[field].trim()) {
+        return res.status(400).json({ success: false, message: `Missing required field: ${field}` });
+      }
+    }
+    // Prepare row in correct order
+    const row = SUBS_HEADERS.map(h => (data[h] || "").trim());
+    // Append to sheet
+    await appendRowByHeaders(
+      config.SUBMISSIONS_SHEET_ID,
+      config.SUBMISSIONS_SHEET_NAME,
+      SUBS_HEADERS,
+      row
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Add Sub Error:", err);
+    res.status(500).json({ success: false, message: err.message || "Failed to add sub" });
+  }
+};
+
 // (Removed: addSub, editSub, and deleteSub controller functions)
 
 // Add more admin tab handlers below as needed

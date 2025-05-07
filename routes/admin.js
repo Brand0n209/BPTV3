@@ -50,5 +50,9 @@ router.get('/settings', adminController.settings);
  */
 router.get('/subs', adminController.subsView);
 
+/**
+ * Add Sub (AJAX POST)
+ */
+router.post('/subs/add', adminController.addSub);
 
 module.exports = router;
