@@ -5,12 +5,11 @@
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     <div class="flex flex-row h-[calc(100vh-4rem)]">
       <!-- Sub-Tabs Vertical Sidebar -->
-      <div class="flex flex-col w-56 bg-white border-r border-blue-200 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
+      <div class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
         <% tabList.forEach(tab => { %>
           <a href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
-             class="block px-4 py-2 rounded-md text-left text-blue-700 font-medium transition
-               <%= currentStage === tab ? 'bg-blue-500 text-white' : 'hover:bg-blue-100' %>">
+             class="<%= currentStage === tab ? 'bg-blue-100' : '' %>">
             <%= tab %>
           </a>
         <% }) %>
