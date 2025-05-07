@@ -1,10 +1,11 @@
 /**
  * Add Sub Module JS
  * Renders the Add Sub form using config options and handles submission.
+ * Layout and grouping matches the provided code exactly.
  * Requires window.SUBS_FORM_OPTIONS to be defined.
  */
 (function() {
-  // Field definitions
+  // Field definitions (from provided code)
   const SUBS_HEADERS = [
     "First Name", "Last Name", "Phone Number", "Email", "Referral", "Address", "City", "Home Stories",
     "Lighting Options", "Lighting Sides", "Pref Service Date (LIGHTING)", "Measure", "Lighting notes",
@@ -34,6 +35,7 @@
     "Last Name": "text"
   };
 
+  // Render all fields in a single grid using config/settings options
   function renderAddSubFields(opts) {
     const OPTIONS = {
       "Referral": opts.REFERRAL_SOURCES,
@@ -55,6 +57,7 @@
     let i = 0;
     while (i < SUBS_HEADERS.length) {
       const h = SUBS_HEADERS[i];
+      // Custom block for Lighting Options, Lighting Sides, Pref Service Date (LIGHTING), Measure, Lighting notes
       if (h === "Lighting Options") {
         // Lighting Options checkboxes
         const lightingOptionsLabel = `<label class="form-label">Lighting Options</label>`;
@@ -110,9 +113,11 @@
         </div>
         <div class="row w-100">
         `;
+        // Skip the next 4 fields: Lighting Sides, Pref Service Date (LIGHTING), Measure, Lighting notes
         i += 5;
         continue;
       }
+      // Skip fields already rendered in the custom block
       if (
         h === "Lighting Sides" ||
         h === "Pref Service Date (LIGHTING)" ||
@@ -122,6 +127,7 @@
         i++;
         continue;
       }
+      // Custom block for Solar Selected Services, Pref Service Date (SOLAR), Solar Panels, Solar notes
       if (h === "Solar Selected Services") {
         const solarServicesLabel = `<label class="form-label">Solar Selected Services</label>`;
         const solarServicesInput = OPTIONS["Solar Selected Services"].map(opt => `
@@ -159,9 +165,11 @@
         </div>
         <div class="row w-100">
         `;
+        // Skip the next 3 fields: Pref Service Date (SOLAR), Solar Panels, Solar notes
         i += 4;
         continue;
       }
+      // Skip fields already rendered in the custom block
       if (
         h === "Pref Service Date (SOLAR)" ||
         h === "Solar Panels" ||
@@ -170,6 +178,7 @@
         i++;
         continue;
       }
+      // Default rendering for other fields
       const isRequired = REQUIRED_FIELDS.includes(h);
       const label = `<label class="form-label">${h}${isRequired ? ' <span style="color:red">*</span>' : ''}</label>`;
       let input = "";
