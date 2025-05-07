@@ -1,88 +1,36 @@
-# 🚀 Bright Prodigy Node.js App
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A minimal Node.js web app designed for easy deployment to Google Cloud Run using Docker.
+## Getting Started
 
----
+First, run the development server:
 
-## Features
-
-- Responds with **“🚀 Bright Prodigy is Live!”** on all HTTP requests
-- No dependencies except Node.js (no frameworks, no frontend libraries)
-- Ready for containerized deployment with Docker and Google Cloud Build
-
----
-
-## File Structure
-
-- `index.js` — Node.js HTTP server
-- `package.json` — Project configuration
-- `Dockerfile` — Container build instructions
-- `README.md` — This file
-
----
-
-## Running Locally
-
-1. **Install Node.js** (version 18 or higher recommended)
-2. Start the server:
-   ```sh
-   npm start
-   ```
-3. Visit [http://localhost:8080](http://localhost:8080) in your browser
-
-Or test with curl:
-```sh
-curl http://localhost:8080
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploying to Google Cloud Run
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### 1. Build the Docker image
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-```sh
-docker build -t gcr.io/YOUR_PROJECT_ID/bright-prodigy-app .
-```
+## Learn More
 
-### 2. Push the image to Google Container Registry
+To learn more about Next.js, take a look at the following resources:
 
-```sh
-docker push gcr.io/YOUR_PROJECT_ID/bright-prodigy-app
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### 3. Deploy to Cloud Run
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-```sh
-gcloud run deploy bright-prodigy-app \
-  --image gcr.io/YOUR_PROJECT_ID/bright-prodigy-app \
-  --platform managed \
-  --region YOUR_REGION \
-  --allow-unauthenticated \
-  --port 8080
-```
+## Deploy on Vercel
 
-Replace `YOUR_PROJECT_ID` and `YOUR_REGION` with your GCP project and region.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
----
-
-## Cloud Build Trigger (Optional)
-
-To automate builds on git push:
-
-1. In Google Cloud Console, go to **Cloud Build > Triggers**
-2. Create a trigger for your repo, using the Dockerfile in the root directory
-3. Set the build steps to build and push the image as above
-
----
-
-
-🟢 Triggered first deployment manually on May 6 x7
-
-pushupdates: "
-git add .
-git commit -m "Trigger rebuild"
-git push
-
-
-"
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

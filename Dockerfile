@@ -10,7 +10,9 @@ RUN npm install
 # Copy the rest of the app
 COPY . .
 
+# Build the Next.js app
+RUN npm run build
+
 EXPOSE 8080
 
 CMD ["npm", "start"]
-
