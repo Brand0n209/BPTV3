@@ -17,15 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Open Add Sub Modal
   addSubBtn && addSubBtn.addEventListener('click', function () {
-    // Hide table/search area
-    // Hide only the main content area (table/search)
+    // Always hide the main content area (table/search)
     const contentArea = document.querySelector('.content-area');
-    if (contentArea && !addSubModal.classList.contains('hidden') && !editSubModal.classList.contains('hidden')) {
-      contentArea.style.display = 'none';
-    } else if (contentArea) {
-      contentArea.style.display = 'none';
-    }
-    renderAddSubForm(); 
+    if (contentArea) contentArea.style.display = 'none';
+    renderAddSubForm();
+    // Always show the modal
     addSubModal.classList.remove('hidden');
   });
 
@@ -63,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table rows clickable for editing
   document.querySelectorAll('.sub-row').forEach(row => {
     row.addEventListener('click', function () {
-      // Hide table/search area
+      // Always hide the main content area (table/search)
       const contentArea = document.querySelector('.content-area');
       if (contentArea) contentArea.style.display = 'none';
       const table = row.closest('table');
@@ -73,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
       headers.forEach((h, i) => { rowData[h] = values[i]; });
       // Pass unique fields for backend matching
       renderEditSubForm(rowData);
+      // Always show the modal
       editSubModal.classList.remove('hidden');
     });
   });
