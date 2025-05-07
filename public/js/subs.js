@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (contentArea) {
       contentArea.style.display = 'none';
     }
-    renderAddSubForm();
+    renderAddSubForm(); 
     addSubModal.classList.remove('hidden');
   });
 
