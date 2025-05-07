@@ -5,45 +5,55 @@
     <%- include('../partials/topbar', { user: typeof user !== 'undefined' ? user : null, currentTab: 'Subs' }) %>
     <div class="flex flex-row h-[calc(100vh-4rem)]">
       <!-- Sub-Tabs Vertical Sidebar -->
-      <div class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
+      <nav aria-label="Sub stages" class="subtabs-nav sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto z-40">
         <% const tabList = ['All Subs', 'Not Contacted Yet', 'Contacted', 'Waiting Cust Approval', 'Confirmed & Inputted', 'Not Interested after sub', 'Bad Lead', 'Contacted again, no reply', 'Fired']; %>
-        <% tabList.forEach(tab => { %>
-          <a href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
-             class="pl-16 <%= currentStage === tab ? 'bg-blue-100' : '' %>">
-            <%= tab %>
-          </a>
-        <% }) %>
-      </div>
+        <ul>
+          <% tabList.forEach(tab => { %>
+            <li>
+              <a
+                href="/admin/subs?<%= tab === 'All Subs' ? '' : 'stage=' + encodeURIComponent(tab) %>"
+                class="block px-4 py-2 rounded-md font-medium transition-colors text-blue-700 hover:bg-blue-50 focus:bg-blue-100 <%= currentStage === tab ? 'bg-blue-100' : '' %>"
+                aria-current="<%= currentStage === tab ? 'page' : undefined %>"
+              >
+                <%= tab %>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </nav>
       <!-- Main content: table to the right of sub-tabs, fills remaining space -->
       <div class="flex-1 min-w-0 flex flex-col">
         <h1 class="text-2xl font-bold mb-4 px-6 pt-6">Subs</h1>
         <div class="flex-1 min-h-0 overflow-auto px-6 pb-6">
-          <table class="table-auto divide-y divide-gray-200">
-            <thead class="bg-blue-100 sticky top-0 z-10">
-              <tr>
-                <% if (rows && rows.length > 0) { Object.keys(rows[0]).forEach(col => { %>
-                  <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-blue-100 whitespace-nowrap">
-                    <%= col %>
-                  </th>
-                <% }) } %>
-              </tr>
-            </thead>
-            <tbody>
-              <% if (rows && rows.length > 0) { %>
-                <% rows.forEach((row, idx) => { %>
-                  <tr class="<%= idx % 2 === 0 ? 'bg-white' : 'bg-blue-100' %>">
-                    <% Object.values(row).forEach(val => { %>
-                      <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap"><%= val %></td>
-                    <% }) %>
-                  </tr>
-                <% }) %>
-              <% } else { %>
+          <% const hasRows = rows && rows.length > 0; %>
+          <div class="overflow-x-auto w-full">
+            <table class="table-auto divide-y divide-gray-200 min-w-full">
+              <thead class="bg-blue-100 sticky top-0 z-10">
                 <tr>
-                  <td colspan="100" class="text-center py-8 text-gray-400">No submissions found.</td>
+                  <% if (hasRows) { Object.keys(rows[0]).forEach(col => { %>
+                    <th class="px-4 py-2 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider bg-blue-100 whitespace-nowrap">
+                      <%= col %>
+                    </th>
+                  <% }) } %>
                 </tr>
-              <% } %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% if (hasRows) { %>
+                  <% rows.forEach((row, idx) => { %>
+                    <tr class="<%= idx % 2 === 0 ? 'bg-white' : 'bg-blue-100' %>">
+                      <% Object.values(row).forEach(val => { %>
+                        <td class="px-4 py-2 text-sm text-gray-900 whitespace-nowrap"><%= val %></td>
+                      <% }) %>
+                    </tr>
+                  <% }) %>
+                <% } else { %>
+                  <tr>
+                    <td colspan="100" class="text-center py-8 text-gray-400">No submissions found.</td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
