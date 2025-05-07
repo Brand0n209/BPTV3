@@ -16,3 +16,4 @@ router.get('/', customerController.home);
 // Future: Add more customer tab routes here
 
 module.exports = router;
+

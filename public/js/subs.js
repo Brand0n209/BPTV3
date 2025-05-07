@@ -129,3 +129,4 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table rows clickable for editing
   // (Removed: no longer supports editing subs)
 });
+

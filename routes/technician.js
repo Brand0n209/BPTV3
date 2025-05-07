@@ -16,3 +16,4 @@ router.get('/', technicianController.home);
 // Future: Add more technician tab routes here
 
 module.exports = router;
+

@@ -12,3 +12,4 @@ exports.home = (req, res) => {
 };
 
 // Future: Add more advisor tab handlers here
+

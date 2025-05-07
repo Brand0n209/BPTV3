@@ -56,3 +56,4 @@ router.get('/subs', adminController.subsView);
 router.post('/subs/add', adminController.addSub);
 
 module.exports = router;
+
