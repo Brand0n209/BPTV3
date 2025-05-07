@@ -30,7 +30,7 @@
             <h2 class="text-2xl font-bold text-blue-900">Add Sub</h2>
           </div>
           <form id="addSubForm" autocomplete="off" class="relative bg-white p-6 rounded-lg shadow" style="position:relative;">
-            <!-- Row 1 -->
+            <!-- Row 1: First Name, Last Name, Phone Number, Email -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700">First Name <span class="text-red-500">*</span></label>
@@ -49,17 +49,9 @@
                 <input type="email" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Email">
               </div>
             </div>
-            <!-- Row 2 -->
+            <!-- Row 2: Address (col-span-2), City, Home Stories -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700">Referral <span class="text-red-500">*</span></label>
-                <select class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Referral">
-                  <% subsFormOptions.REFERRAL_SOURCES.forEach(function(opt) { %>
-                    <option value="<%= opt %>"><%= opt %></option>
-                  <% }) %>
-                </select>
-              </div>
-              <div>
+              <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700">Address <span class="text-red-500">*</span></label>
                 <input type="text" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Address">
               </div>
@@ -76,41 +68,46 @@
                 </select>
               </div>
             </div>
-            <!-- Row 3: Lighting Block -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
-              <div class="md:col-span-6 flex gap-4">
-                <div class="flex-1 min-w-0">
-                  <label class="block text-sm font-medium text-gray-700">Lighting Options</label>
-                  <% subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT).forEach(function(opt) { %>
-                    <div class="flex items-center mt-1">
-                      <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Options" value="<%= opt %>" id="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>">
-                      <label for="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                    </div>
-                  <% }) %>
-                </div>
-                <div class="flex-1 min-w-0">
-                  <label class="block text-sm font-medium text-gray-700">Lighting Sides</label>
-                  <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt) { %>
-                    <div class="flex items-center mt-1">
-                      <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Sides" value="<%= opt %>" id="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>">
-                      <label for="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
-                    </div>
-                  <% }) %>
-                </div>
+            <!-- Row 3: Lighting Block (custom grid) -->
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
+              <!-- Lighting Options (col-span-2) -->
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Lighting Options</label>
+                <% subsFormOptions.LIGHTING_OPTIONS_TEMPORARY.concat(subsFormOptions.LIGHTING_OPTIONS_PERMANENT).forEach(function(opt) { %>
+                  <div class="flex items-center mt-1">
+                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Options" value="<%= opt %>" id="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>">
+                    <label for="addsub-LightingOptions-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
+                  </div>
+                <% }) %>
               </div>
-              <div class="md:col-span-3">
-                <label class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
-                <input type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)">
-                <label class="block text-sm font-medium text-gray-700 mt-2">Measure</label>
-                <select class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure">
-                  <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
-                    <option value="<%= opt %>"><%= opt %></option>
-                  <% }) %>
-                </select>
+              <!-- Lighting Sides (col-span-2) -->
+              <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700">Lighting Sides</label>
+                <% subsFormOptions.LIGHTING_SIDES.forEach(function(opt) { %>
+                  <div class="flex items-center mt-1">
+                    <input class="mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" type="checkbox" name="Lighting Sides" value="<%= opt %>" id="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>">
+                    <label for="addsub-LightingSides-<%= opt.replace(/\s+/g, '') %>" class="text-sm text-gray-700"><%= opt %></label>
+                  </div>
+                <% }) %>
               </div>
-              <div class="md:col-span-3 flex flex-col h-full">
-                <label class="block text-sm font-medium text-gray-700">Lighting notes</label>
-                <textarea class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base flex-1" name="Lighting notes" rows="4"></textarea>
+              <!-- Pref Service Date (LIGHTING) and Measure (stacked), Lighting notes (row-span-2) -->
+              <div class="md:col-span-2 grid grid-rows-3 gap-2 h-full">
+                <div class="row-span-1">
+                  <label class="block text-sm font-medium text-gray-700">Pref Service Date (LIGHTING)</label>
+                  <input type="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Pref Service Date (LIGHTING)">
+                </div>
+                <div class="row-span-1">
+                  <label class="block text-sm font-medium text-gray-700">Measure</label>
+                  <select class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base" name="Measure">
+                    <% subsFormOptions.MEASURE_OPTIONS.forEach(function(opt) { %>
+                      <option value="<%= opt %>"><%= opt %></option>
+                    <% }) %>
+                  </select>
+                </div>
+                <div class="row-span-1 row-start-3 row-end-4 h-full">
+                  <label class="block text-sm font-medium text-gray-700">Lighting notes</label>
+                  <textarea class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base h-24" name="Lighting notes" rows="4"></textarea>
+                </div>
               </div>
             </div>
             <!-- Row 4: Solar Block -->
